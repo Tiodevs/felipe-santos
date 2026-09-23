@@ -1,5 +1,4 @@
 import { ImageResponse } from "next/og";
-import { MESH_PATHS } from "@/components/LogoMark";
 import { SITE } from "@/data/site";
 
 export const alt = `${SITE.name} — ${SITE.tagline}`;
@@ -22,31 +21,9 @@ export default function OpengraphImage() {
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-          <svg width="72" height="60" viewBox="0 0 120 100" fill="none">
-            {MESH_PATHS.map((d) => (
-              <path
-                key={d}
-                d={d}
-                stroke="#0F9BB8"
-                strokeWidth={7}
-                strokeLinecap="round"
-              />
-            ))}
-            <rect
-              x="4"
-              y="4"
-              width="112"
-              height="92"
-              rx="4"
-              stroke="#0F9BB8"
-              strokeWidth={7}
-            />
-          </svg>
-          <span style={{ fontSize: 44, letterSpacing: "-0.02em" }}>
-            {SITE.name}
-          </span>
-        </div>
+        <span style={{ fontSize: 44, letterSpacing: "-0.02em" }}>
+          {SITE.name}
+        </span>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <span

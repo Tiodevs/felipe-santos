@@ -14,6 +14,9 @@ const Work = dynamic(() =>
 const Process = dynamic(() =>
   import("@/components/Process").then((mod) => mod.Process),
 );
+const Studies = dynamic(() =>
+  import("@/components/Studies").then((mod) => mod.Studies),
+);
 
 export default function Home() {
   return (
@@ -24,6 +27,7 @@ export default function Home() {
       <Services />
       <Work />
       <Process />
+      <Studies />
     </>
   );
 }

@@ -146,7 +146,8 @@ export default async function ProjectPage({
             </a>
           ) : null}
           <a
-            href={`${home}#contato`}
+            href={dictionary.cv.href}
+            download={dictionary.cv.fileName}
             className="group relative inline-flex overflow-hidden rounded-full bg-cyan px-5 py-2.5 text-xs font-medium tracking-[0.14em] text-ink-deep uppercase"
           >
             <span className="relative z-10">{dictionary.nav.startProject}</span>

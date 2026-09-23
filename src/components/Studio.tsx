@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { LogoMark } from "@/components/LogoMark";
 import { RevealGroup, RevealText } from "@/components/Reveal";
 import { useSite } from "@/components/SiteProvider";
 
@@ -31,7 +30,6 @@ export function Studio() {
             />
             <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-ink-line" />
           </div>
-          <LogoMark className="mt-8 hidden h-10 w-12 text-cyan md:block" />
         </div>
 
         <div className="md:col-span-8">

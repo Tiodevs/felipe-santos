@@ -46,7 +46,15 @@ export type ProjectCopy = {
 export type ProcessStep = {
   index: string;
   title: string;
+  period: string;
+  role: string;
   description: string;
+};
+
+export type CourseCopy = {
+  title: string;
+  place: string;
+  year: string;
 };
 
 export type Dictionary = {
@@ -119,29 +127,31 @@ export type Dictionary = {
     nextProject: string;
   };
   projects: ProjectCopy[];
+  cv: {
+    href: string;
+    fileName: string;
+  };
   process: {
     eyebrow: string;
     title: string;
     steps: ProcessStep[];
   };
+  studies: {
+    eyebrow: string;
+    title: string;
+    degreeLabel: string;
+    degree: string;
+    school: string;
+    period: string;
+    coursesLabel: string;
+    courses: CourseCopy[];
+  };
   contact: {
     eyebrow: string;
     headline: [string, string];
     follow: string;
-    formEyebrow: string;
-    formIntro: string;
-    name: string;
-    namePlaceholder: string;
-    email: string;
-    emailPlaceholder: string;
-    phone: string;
-    phonePlaceholder: string;
-    preferEmail: string;
-    submit: string;
-    sending: string;
-    thanks: string;
-    sendAnother: string;
-    fallbackName: string;
+    intro: string;
+    download: string;
   };
   footer: {
     rights: string;

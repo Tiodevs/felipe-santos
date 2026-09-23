@@ -7,7 +7,7 @@ import { useSite } from "@/components/SiteProvider";
 
 export function Hero() {
   const root = useRef<HTMLElement>(null);
-  const { openBrief, scrollTo, dictionary } = useSite();
+  const { scrollTo, dictionary } = useSite();
   const t = dictionary.hero;
 
   useGSAP(
@@ -97,15 +97,15 @@ export function Hero() {
             data-hero-cta
             className="flex flex-wrap items-center gap-3 md:col-span-4 md:col-start-7"
           >
-            <button
+            <a
               data-anim="hidden"
-              type="button"
-              onClick={openBrief}
+              href={dictionary.cv.href}
+              download={dictionary.cv.fileName}
               className="group relative overflow-hidden rounded-full bg-cyan px-6 py-3 text-xs font-medium tracking-[0.14em] text-ink-deep uppercase"
             >
               <span className="relative z-10">{t.ctaPrimary}</span>
               <span className="absolute inset-0 origin-bottom scale-y-0 bg-paper transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-y-100" />
-            </button>
+            </a>
             <a
               data-anim="hidden"
               href="#projetos"

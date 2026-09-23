@@ -54,7 +54,7 @@ export function Process() {
   return (
     <section
       ref={root}
-      id="processo"
+      id="experiencia"
       className="relative scroll-mt-24 bg-ink-soft py-24 md:py-36"
     >
       <div className="shell">
@@ -93,6 +93,10 @@ export function Process() {
                   <h3 className="display text-[clamp(1.5rem,3.2vw,2.5rem)]">
                     {step.title}
                   </h3>
+                  <p className="mt-3 font-mono text-[0.65rem] tracking-[0.16em] text-bone-dim uppercase">
+                    {step.period}
+                  </p>
+                  <p className="mt-2 text-sm text-bone">{step.role}</p>
                 </div>
 
                 <div className="md:col-span-7 md:col-start-6">

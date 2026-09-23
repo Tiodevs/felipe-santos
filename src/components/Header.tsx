@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { EASE, ScrollTrigger, gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
-import { LogoLockup } from "@/components/LogoMark";
 import { useSite } from "@/components/SiteProvider";
 import { SOCIALS, CONTACT } from "@/data/site";
 
@@ -16,7 +15,6 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const {
     lockScroll,
-    openBrief,
     scrollTo,
     toggleTheme,
     dictionary,
@@ -118,15 +116,6 @@ export function Header() {
     [scrollTo, toggle],
   );
 
-  const startProject = useCallback(() => {
-    if (open) {
-      toggle(false);
-      window.setTimeout(openBrief, 420);
-      return;
-    }
-    openBrief();
-  }, [open, openBrief, toggle]);
-
   const onSwitchLocale = useCallback(() => {
     if (open) toggle(false);
     switchLocale();
@@ -159,7 +148,9 @@ export function Header() {
             className="relative z-10"
             aria-label={t.home}
           >
-            <LogoLockup />
+            <span className="text-[1.0625rem] font-medium tracking-tight text-bone">
+              Felipe
+            </span>
           </Link>
 
           <div className="relative z-10 flex items-center gap-4 sm:gap-5">
@@ -209,13 +200,13 @@ export function Header() {
               </svg>
             </button>
 
-            <button
-              type="button"
-              onClick={startProject}
+            <a
+              href={dictionary.cv.href}
+              download={dictionary.cv.fileName}
               className="hidden text-xs tracking-[0.16em] text-bone uppercase transition-colors hover:text-cyan sm:block"
             >
               {t.startProject}
-            </button>
+            </a>
 
             <button
               type="button"
@@ -311,16 +302,17 @@ export function Header() {
           </nav>
 
           <div className="shell shrink-0 pb-2 sm:hidden">
-            <button
+            <a
               data-menu-aside
-              type="button"
-              onClick={startProject}
+              href={dictionary.cv.href}
+              download={dictionary.cv.fileName}
+              onClick={() => toggle(false)}
               tabIndex={open ? 0 : -1}
-              className="group relative w-full overflow-hidden rounded-full bg-cyan px-6 py-3.5 text-xs font-medium tracking-[0.14em] text-ink-deep uppercase"
+              className="group relative block w-full overflow-hidden rounded-full bg-cyan px-6 py-3.5 text-center text-xs font-medium tracking-[0.14em] text-ink-deep uppercase"
             >
               <span className="relative z-10">{t.startProject}</span>
               <span className="absolute inset-0 origin-bottom scale-y-0 bg-paper transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-y-100" />
-            </button>
+            </a>
           </div>
 
           <div className="shell grid shrink-0 gap-6 border-t border-ink-line py-5 sm:grid-cols-3 sm:gap-8 sm:py-6">

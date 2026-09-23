@@ -15,4 +15,4 @@ npm run dev
 
 Abre em [http://localhost:3000](http://localhost:3000). O português fica em `/pt` e o inglês em `/en`.
 
-O formulário de contato abre o cliente de e-mail. Não há API nem segredo neste repositório.
+O botão baixa o currículo: `public/cv-pt.pdf` na página em português e `public/cv-en.pdf` na página em inglês.
