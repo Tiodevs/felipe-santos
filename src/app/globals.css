@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+@theme {
+  /* Light surfaces */
+  --color-ink: #f2f5f6;
+  --color-ink-soft: #e7ecee;
+  --color-ink-line: #c9d3d8;
+  /* Primary text */
+  --color-bone: #0b1216;
+  --color-bone-dim: #5a6b73;
+  /* Brand */
+  --color-cyan: #0f9bb8;
+  --color-cyan-light: #34c3dd;
+  --color-cyan-wash: #d8f1f7;
+  /* Always-dark ink for text on cyan CTAs */
+  --color-ink-deep: #05070a;
+  /* Light fill used on cyan button hover */
+  --color-paper: #ffffff;
+
+  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+:root {
+  --gutter: 1.25rem;
+  --header-h: 4.5rem;
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --color-ink: #05070a;
+  --color-ink-soft: #0a0e13;
+  --color-ink-line: #171d24;
+  --color-bone: #f2f5f6;
+  --color-bone-dim: #9aa7ae;
+  --color-cyan: #34c3dd;
+  --color-cyan-light: #67d2e5;
+  --color-cyan-wash: #e5f7fb;
+  --color-ink-deep: #05070a;
+  --color-paper: #f2f5f6;
+}
+
+html[data-theme="dark"] [data-theme-icon="sun"],
+html:not([data-theme="dark"]) [data-theme-icon="moon"] {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 2.5rem;
+  }
+}
+
+* {
+  min-width: 0;
+}
+
+html {
+  background-color: var(--color-ink);
+  color: var(--color-bone);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  /* Compensates the scrollbar removed while the menu / briefing lock scroll. */
+  padding-right: var(--scroll-lock-gutter, 0px);
+}
+
+/* Lenis drives scrolling; native smooth-scroll must stay off. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Fixed overlays must match the body gutter or they jump when the scrollbar vanishes. */
+header.fixed,
+[data-menu] {
+  padding-right: var(--scroll-lock-gutter, 0px);
+}
+
+::selection {
+  background-color: var(--color-cyan);
+  color: var(--color-paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 3px;
+}
+
+/* Shells that only receive focus programmatically (dialogs) should not paint
+   the ring: it belongs to the control the visitor is actually on. */
+[data-focus-shell]:focus-visible {
+  outline: none;
+}
+
+@layer utilities {
+  .shell {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    max-width: 96rem;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-bone-dim);
+  }
+
+  .display {
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+
+  /* Uppercase diacritics (Ã, Ê, Ó) overflow a 0.92 line box and get clipped by
+     the masks SplitText adds, so multi-line headings need a taller line. */
+  .display-lines {
+    line-height: 1.06;
+  }
+
+  .hairline {
+    border-top: 1px solid var(--color-ink-line);
+  }
+
+  /* Wrapper for a single line of split text; children translate inside it. */
+  .line-mask {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+  }
+}
+
+/* The fullscreen menu is in the DOM on first paint. Keep it unpainted until
+   JS adds .is-open, otherwise Lighthouse records it as the first view. */
+[data-menu]:not(.is-open) {
+  visibility: hidden;
+}
+
+/* Entry animations stay hidden until GSAP takes over. */
+[data-anim="hidden"] {
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-anim="hidden"] {
+    visibility: visible !important;
+  }
+}
