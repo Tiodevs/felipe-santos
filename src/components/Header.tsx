@@ -271,7 +271,7 @@ export function Header() {
           data-menu-panel
           className="absolute inset-0 flex flex-col bg-ink-soft pt-[var(--header-h)]"
         >
-          <nav className="shell flex min-h-0 flex-1 flex-col justify-center overflow-y-auto py-4 md:py-6">
+          <nav className="shell flex min-h-0 flex-1 flex-col justify-start overflow-y-auto py-4 md:justify-center md:py-6">
             <ul>
               {t.links.map((link, i) => (
                 <li key={link.href}>
@@ -287,9 +287,9 @@ export function Header() {
                       toggle(false);
                     }}
                     tabIndex={open ? 0 : -1}
-                    className="group flex items-baseline justify-between gap-6 overflow-hidden py-[clamp(0.35rem,1.2vh,0.85rem)]"
+                    className="group flex items-baseline justify-between gap-6 overflow-hidden py-1 md:py-[clamp(0.35rem,1.2vh,0.85rem)]"
                   >
-                    <span className="display inline-flex items-baseline gap-4 text-[clamp(2rem,min(8vw,12vh),6.25rem)] text-bone transition-colors duration-500 group-hover:text-cyan md:gap-8">
+                    <span className="display inline-flex items-baseline gap-4 pt-[0.06em] pb-[0.14em] text-[clamp(1.7rem,8.2vw,6.25rem)] leading-[1.08] text-bone transition-colors duration-500 group-hover:text-cyan md:gap-8 md:text-[clamp(2rem,min(8vw,12vh),6.25rem)] md:leading-[0.92]">
                       <em className="font-mono text-[0.6rem] font-normal tracking-[0.2em] text-bone-dim not-italic md:text-xs">
                         0{i + 1}
                       </em>
@@ -301,7 +301,7 @@ export function Header() {
             </ul>
           </nav>
 
-          <div className="shell shrink-0 pb-2 sm:hidden">
+          <div className="shell shrink-0 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:hidden">
             <a
               data-menu-aside
               href={dictionary.cv.href}
@@ -315,7 +315,7 @@ export function Header() {
             </a>
           </div>
 
-          <div className="shell grid shrink-0 gap-6 border-t border-ink-line py-5 sm:grid-cols-3 sm:gap-8 sm:py-6">
+          <div className="shell hidden shrink-0 gap-6 border-t border-ink-line py-5 sm:grid sm:grid-cols-3 sm:gap-8 sm:py-6">
             <div data-menu-aside className="space-y-2">
               <p className="eyebrow">{t.contactLabel}</p>
               <a
