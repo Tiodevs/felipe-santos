@@ -74,165 +74,269 @@ const en: Dictionary = {
   work: {
     eyebrow: "Projects",
     title: "Cases worth opening in a call.",
-    openProject: "Open case",
+    openProject: "View project",
     imageAlt: "Cover for {title}",
   },
   projectPage: {
-    back: "All cases",
+    back: "All projects",
     visitLive: "See it live",
+    viewCode: "View the code",
     role: "Role",
     context: "Context",
     year: "Year",
     stack: "Stack",
     challenge: "The problem",
-    solution: "What I did",
-    highlights: "What holds the case up",
+    solution: "What I built",
+    numbers: "By the numbers",
+    howItWorks: "How it works",
+    highlights: "Why you can trust it",
+    underTheHood: "Under the hood",
+    techTitle: "The technical side",
+    techIntro:
+      "For those who want to see the engine: how the pieces talk, the decisions that protect the schedule, and the full stack.",
+    architecture: "Architecture",
+    alsoTalksTo: "The API also talks to",
+    engineering: "Engineering decisions",
     gallery: "Screens",
     openImage: "Enlarge image",
     close: "Close",
     previous: "Previous image",
     next: "Next image",
-    nextProject: "Next case",
+    nextProject: "Next project",
   },
   projects: [
     {
-      slug: "rag-boticario",
-      title: "RAG at Boticário",
-      category: "Applied AI",
+      slug: "leemia",
+      title: "Leemia",
+      category: "My own product",
       year: "2026",
       summary:
-        "A RAG pipeline over support materials, trainings, and operational guidance, indexed for grounded retrieval. I also multiply AI across other teams.",
-      stack: ["RAG", "LangChain", "Vector store", "Agents"],
-      metric: { value: "RAG", label: "Operational knowledge, with a source" },
-      caseStudy: {
-        role: "AI / GenAI Engineer",
-        context: "Grupo Boticário",
-        overview:
-          "At Grupo Boticário I design a RAG pipeline over support materials, trainings, and operational guidance, indexed for grounded retrieval. I was also selected to multiply AI across the company: training other teams, coaching implementation, and unblocking adoption.",
-        challenge:
-          "Operational knowledge lived across documents, trainings, and day-to-day guidance. Without grounded retrieval, people either lose time searching or get an answer they cannot check.",
-        solution:
-          "I design the RAG on that material, with a vector index. On the agent side, I implement database lookup, ticket actions, and Slack messaging inside a documented harness so orchestration stays repeatable.",
-        highlights: [
-          {
-            title: "Grounded retrieval",
-            body: "The pipeline covers support materials, trainings, and operational guidance. The answer comes from what was indexed.",
-          },
-          {
-            title: "Tool-using agents",
-            body: "Database lookup, ticket-board actions, and Slack messages, inside a documented harness.",
-          },
-          {
-            title: "AI multiplier",
-            body: "Trainings for other teams, implementation coaching, and support when adoption stalls mid-delivery.",
-          },
+        "Online booking for studios and salons. Clients book in three taps, the studio runs everything from one dashboard, and the same slot is never sold twice.",
+      stack: ["Next.js", "React", "Express", "PostgreSQL", "Prisma"],
+      href: "https://agendamento.mefelipe.com.br",
+      metric: { value: "3 taps", label: "for a client to book a slot" },
+      reel: {
+        url: "agendamento.mefelipe.com.br",
+        ariaLabel:
+          "Animation with real Leemia screens: booking on a phone, the studio dashboard, the professional's dashboard, and opening hours.",
+        screens: [
+          { src: "/projetos/leemia/reserva.webp", label: "Three-step booking" },
+          { src: "/projetos/leemia/admin-visao-geral.webp", label: "Studio dashboard" },
+          { src: "/projetos/leemia/profissional-painel.webp", label: "Professional dashboard" },
+          { src: "/projetos/leemia/admin-expediente.webp", label: "Hours and holidays" },
         ],
-        gallery: [],
+        phone: "/projetos/leemia/mobile-reserva.webp",
+        toasts: [
+          { title: "Slot booked", body: "Men's haircut · Tue, Nov 10 · 10:00" },
+          { title: "Confirmation sent", body: "Email to the client and the professional" },
+          { title: "Schedule updated", body: "Marina Costa · next appointment at 10:00" },
+        ],
       },
-    },
-    {
-      slug: "app-super",
-      title: "App Super",
-      category: "Product",
-      year: "2026",
-      summary:
-        "A workforce-management PWA for 10,000+ people. It replaced dozens of spreadsheets for hours, time off, and skills matrices.",
-      stack: ["React", "Node.js", "DocumentDB", "AWS"],
-      metric: { value: "10k+", label: "People in the operation" },
       caseStudy: {
-        role: "Engineer on the PWA",
-        context: "Grupo Boticário",
+        role: "Product, design, and engineering",
+        context: "My own product, live",
         overview:
-          "Engineer on App Super, a workforce-management PWA for 10,000+ people. React, Node.js, MongoDB/DocumentDB, and SSO, collaborating with DevOps on AWS (EKS, S3), ArgoCD, and New Relic.",
+          "Leemia takes the studio's schedule off the paper notebook. Clients book on their own, at any time, in three taps. The studio manages bookings, staff, and hours from one dashboard, and each professional follows their own day.",
         challenge:
-          "Hours, time off, and skills matrices lived in dozens of spreadsheets. Plant coordinators lost time allocating teams, and leadership had little visibility.",
+          "In many studios, booking a haircut still means a phone call, a text, and a notebook at the front desk. That is how the same slot gets sold twice, messages get lost, and professionals only learn their day when they walk in.",
         solution:
-          "I work on the technical decisions of the PWA and with DevOps on deploy and monitoring. Systematizing the work took operational control off the spreadsheets.",
-        highlights: [
+          "I built, from scratch, an online schedule that only shows slots that really exist. The grid comes from the studio's and each professional's hours, in 15-minute steps. Everyone sees what they need: clients book and cancel their own slots, the studio manages everything, and professionals join by invitation.",
+        numbers: [
+          { value: "3", label: "taps to book: service, professional, and time" },
+          { value: "15 min", label: "precision on the time grid" },
+          { value: "2", label: "safeguards against double booking: in the code and in the database" },
+          { value: "10 min", label: "to undo a change to the schedule" },
+        ],
+        audiences: [
           {
-            title: "Scale",
-            body: "10,000+ people in the operation, with SSO and the cloud stack the company already runs.",
+            eyebrow: "For the client",
+            title: "Books in three taps",
+            body: "Pick the service, the professional, and a free slot. The confirmation arrives by email, and clients can cancel on their own up to 2 hours before.",
+            points: [
+              "Only real, free slots show up",
+              "Designed for the phone first",
+              "Up to 60 days ahead",
+            ],
+            shot: {
+              src: "/projetos/leemia/reserva.webp",
+              alt: "Booking screen with a calendar, free time slots, and the booking summary.",
+              caption: "",
+              width: 2160,
+              height: 1350,
+            },
           },
           {
-            title: "Output",
-            body: "About 20% more productivity for plant coordinators and 10% less time spent allocating teams.",
+            eyebrow: "For the studio",
+            title: "Runs everything from one dashboard",
+            body: "The full schedule, service catalog, staff, and opening hours, with revenue, occupancy, and average ticket for the period.",
+            points: [
+              "Book on a client's behalf",
+              "Staff join by invitation",
+              "Holidays and special days",
+            ],
+            shot: {
+              src: "/projetos/leemia/admin-visao-geral.webp",
+              alt: "Studio overview with bookings, revenue, average ticket, and occupancy.",
+              caption: "",
+              width: 2160,
+              height: 1350,
+            },
           },
           {
-            title: "Operational base",
-            body: "The slice supports an operational cost base of roughly R$63 million a year.",
+            eyebrow: "For the professional",
+            title: "Sees their own day",
+            body: "A dashboard with their own numbers and schedule, where they confirm, start, complete, or mark a no-show for each appointment.",
+            points: [
+              "Their own metrics",
+              "Schedule by period and status",
+              "An email for every new booking",
+            ],
+            shot: {
+              src: "/projetos/leemia/profissional-painel.webp",
+              alt: "Professional's dashboard with revenue, occupancy, and upcoming appointments.",
+              caption: "",
+              width: 2160,
+              height: 1350,
+            },
           },
         ],
-        gallery: [],
-      },
-    },
-    {
-      slug: "plataforma-rh",
-      title: "HR platform",
-      category: "Leadership",
-      year: "2025",
-      summary:
-        "An internal time-tracking and payroll system for contractors, built from scratch. Tech lead. Payroll close dropped by about 70%.",
-      stack: ["Next.js", "Node.js", "PostgreSQL", "n8n"],
-      metric: { value: "−70%", label: "Time to close payroll" },
-      caseStudy: {
-        role: "Full-Stack and Tech Lead",
-        context: "ASSUMTEK",
-        overview:
-          "At ASSUMTEK, from January 2025 to January 2026, I built the internal time-tracking and payroll system for PJ contractors and led engineering: architecture, demand, and 1:1s.",
-        challenge:
-          "Contractor hours, caps, approvals, and dynamic compensation depended on a manual process. Payroll close was slow and easy to get wrong.",
-        solution:
-          "A product from scratch with Node, PostgreSQL, Next.js, Vercel, and Railway, including the business rules and approval flows. Around it, integration backends with Node, n8n, and Make (Meta Ads, CRMs) and Node/Python pipelines for Power BI.",
         highlights: [
           {
-            title: "Payroll",
-            body: "About 70% less HR operational time to close payroll.",
+            title: "A schedule you can trust",
+            body: "The grid comes from real working hours. At booking time, the system locks the professional's schedule, and the database itself refuses two clients in the same slot.",
           },
           {
-            title: "Tech lead",
-            body: "Demand management, solution architecture, and 1:1s.",
+            title: "Clear rules",
+            body: "A single rule set decides what clients, professionals, and the studio can do with each booking: a cancellation window, a history of every change, and a 10-minute “Undo”.",
           },
           {
-            title: "Data",
-            body: "Pipelines for Power BI across Product, Marketing, IT, HR, and client-facing B2B projects.",
+            title: "Protected accounts",
+            body: "Passwords stored safely, login locked after 5 failed attempts, email confirmed before booking, and professional access by invitation only.",
+          },
+          {
+            title: "No one caught off guard",
+            body: "Clients and professionals get an email when a slot is booked or canceled. If the studio changes its hours, anyone who loses a slot is told why.",
           },
         ],
-        gallery: [],
-      },
-    },
-    {
-      slug: "saas-barbearias",
-      title: "Barbershop SaaS",
-      category: "Founder",
-      year: "2021",
-      summary:
-        "A multi-tenant product I founded: scheduling, payroll, subscriptions, and reminders. It passed 7,000 registered users.",
-      stack: ["Next.js", "Prisma", "AWS S3", "Vercel"],
-      metric: { value: "7k+", label: "Registered users" },
-      caseStudy: {
-        role: "Founder and Full-Stack",
-        context: "Sentier",
-        overview:
-          "At Sentier, from January 2021 to January 2025, I was the primary engineer on 40+ B2B projects and on a multi-tenant barbershop SaaS.",
-        challenge:
-          "Scheduling, commission, subscriptions, and reminders were fragmented. The shops needed a multi-tenant system that digitized the day without a heavy operation.",
-        solution:
-          "I built scheduling, staff payroll, a subscription engine, and automated reminders with Next.js, Node.js, Prisma, AWS S3, Resend, and Vercel. The other projects ran from Figma through production.",
-        highlights: [
+        gallery: [
           {
-            title: "Product scale",
-            body: "7,000+ registered users.",
+            src: "/projetos/leemia/landing.webp",
+            alt: "Leemia's home page with the headline “Book your slot in three taps”.",
+            caption: "The home page introduces the booking, which takes less than a minute.",
+            wide: true,
+            width: 2160,
+            height: 1350,
           },
           {
-            title: "Time in the operation",
-            body: "Clients saved about 17–20% of daily operational time.",
+            src: "/projetos/leemia/reserva.webp",
+            alt: "Third booking step: calendar, grid of free slots, and a summary with the total.",
+            caption: "Three-step booking: service, professional, and time. The grid only shows what is free.",
+            width: 2160,
+            height: 1350,
           },
           {
-            title: "B2B delivery",
-            body: "40+ complete projects: systems, landing pages, automations, and BI.",
+            src: "/projetos/leemia/admin-visao-geral.webp",
+            alt: "Studio overview with bookings, revenue, average ticket, occupancy, and latest bookings.",
+            caption: "Studio overview: realized and expected revenue, average ticket, and occupancy, by period, professional, and service.",
+            width: 2160,
+            height: 1350,
+          },
+          {
+            src: "/projetos/leemia/admin-expediente.webp",
+            alt: "Opening hours for each day of the week, with Sunday closed.",
+            caption: "Hours and holidays: the weekly schedule, special days, and each professional's own hours.",
+            width: 2160,
+            height: 1350,
+          },
+          {
+            src: "/projetos/leemia/profissional-painel.webp",
+            alt: "Dashboard of the professional Marina Costa with revenue, occupancy, and upcoming appointments.",
+            caption: "Professional dashboard: revenue, occupancy, and upcoming appointments for whoever is signed in.",
+            width: 2160,
+            height: 1350,
+          },
+          {
+            src: "/projetos/leemia/admin-servicos.webp",
+            alt: "Service catalog with duration and price.",
+            caption: "Catalog: price and duration of each service. A service with history is deactivated, never deleted.",
+            width: 2160,
+            height: 1350,
+          },
+          {
+            src: "/projetos/leemia/admin-equipe.webp",
+            alt: "Staff with each professional's services and the state of their dashboard access.",
+            caption: "Staff: each professional's services and dashboard access, granted once the invitation is accepted.",
+            width: 2160,
+            height: 1350,
           },
         ],
-        gallery: [],
+        architecture: {
+          flow: [
+            { name: "Browser", detail: "Clients, studio, and professionals" },
+            { name: "Next.js web app", detail: "Vercel" },
+            { name: "Express API", detail: "Railway · business rules" },
+            { name: "PostgreSQL", detail: "Railway · private network" },
+          ],
+          services: [
+            { name: "Resend", detail: "Transactional email" },
+            { name: "S3 bucket", detail: "Profile photos" },
+            { name: "GitHub Actions", detail: "CI on every pull request" },
+          ],
+          note: "The browser loads the app from Vercel and calls the API directly, with the token in the header, and CORS only accepts the front end's origin. Only the API talks to the database, and it holds every rule, in layers: routes, controllers with Zod validation, services, and Prisma.",
+        },
+        engineering: [
+          {
+            title: "Two locks against double booking",
+            body: "When booking, the service locks the professional's row with FOR UPDATE inside the transaction. If the code ever fails, an EXCLUDE constraint in PostgreSQL rejects the overlap.",
+          },
+          {
+            title: "One state machine",
+            body: "A single module decides who can change a booking's status, and when: deadlines per role, a history of every transition, and a 10-minute “Undo”.",
+          },
+          {
+            title: "Impact checked before hours change",
+            body: "Closing a day or changing hours lists the affected clients before saving and asks for a decision: keep the bookings, or cancel and email each client the reason.",
+          },
+          {
+            title: "Sessions and access",
+            body: "JWT with a session version (“Sign out” ends every session), bcrypt, login lockout by email and IP, per-route rate limits, Helmet, and strict CORS.",
+          },
+          {
+            title: "Delivery with a safety net",
+            body: "CI with four parallel jobs on every pull request (API, web, database contract, and Playwright E2E) and a health check that reports the live commit. Seed and E2E refuse to run against the production database.",
+          },
+        ],
+        stackTable: [
+          {
+            layer: "Front end",
+            tech: "Next.js 15, React 19, TypeScript, Tailwind CSS 4, shadcn/ui, Radix UI, and GSAP",
+          },
+          {
+            layer: "API",
+            tech: "Node.js 20, Express 4, TypeScript, Zod, Helmet, and Swagger",
+          },
+          {
+            layer: "Data",
+            tech: "PostgreSQL with Prisma 7, versioned migrations, and an exclusion constraint",
+          },
+          {
+            layer: "Auth",
+            tech: "JWT with a session version and bcrypt-hashed passwords",
+          },
+          {
+            layer: "Integrations",
+            tech: "Resend for email and an S3 bucket for profile photos",
+          },
+          {
+            layer: "Tests",
+            tech: "node:test for unit tests and Playwright for API and UI end-to-end tests",
+          },
+          {
+            layer: "Delivery",
+            tech: "GitHub Actions, Vercel, Railway, and Docker Compose for local development",
+          },
+        ],
+        codeHref: "https://github.com/Tiodevs/sistema-de-agendamentos",
       },
     },
   ],
