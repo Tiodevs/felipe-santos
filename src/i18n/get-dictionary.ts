@@ -47,6 +47,8 @@ export type CourseCopy = {
   title: string;
   place: string;
   year: string;
+  /** Logo of the institution, shown next to the course. */
+  logo?: string;
 };
 
 export type Dictionary = {

@@ -19,9 +19,9 @@ const en: Dictionary = {
   },
   nav: {
     links: [
-      { label: "Work style", href: "#servicos" },
-      { label: "Work", href: "#projetos" },
-      { label: "Experience", href: "#experiencia" },
+      { label: "Service", href: "#servicos" },
+      { label: "Projects", href: "#projetos" },
+      { label: "Career", href: "#experiencia" },
       { label: "Studies", href: "#estudos" },
     ],
     startProject: "Download CV",
@@ -43,7 +43,7 @@ const en: Dictionary = {
     pitch:
       "Python and JavaScript systems on AWS with multi-agent pipelines, RAG, observability, and cost control that survive real users.",
     ctaPrimary: "Download CV",
-    ctaSecondary: "See work",
+    ctaSecondary: "See projects",
     photoAlt:
       "Felipe Santos in glasses and a sweater, smiling with arms crossed.",
   },
@@ -59,7 +59,7 @@ const en: Dictionary = {
     "TypeScript",
   ],
   services: {
-    eyebrow: "Work style",
+    eyebrow: "Service",
     title: "AI-native systems",
     summary:
       "I build custom solutions for companies, from process automation to complete systems. The work starts with a diagnosis of the company and runs until the system is built and live.",
@@ -72,7 +72,7 @@ const en: Dictionary = {
     ],
   },
   work: {
-    eyebrow: "Work",
+    eyebrow: "Projects",
     title: "Cases worth opening in a call.",
     openProject: "Open case",
     imageAlt: "Cover for {title}",
@@ -241,19 +241,27 @@ const en: Dictionary = {
     fileName: "Felipe P. dos Santos - Resume.pdf",
   },
   process: {
-    eyebrow: "Experience",
+    eyebrow: "Career",
     title: "Where I have put software into an operation.",
     steps: [
       {
         index: "01",
+        title: "Unimed",
+        period: "Nov 2026 — present",
+        role: "Senior AI Engineer",
+        description:
+          "I own the in-house LLM platform behind the AI projects of this Brazilian health insurer: vLLM on GPUs in AWS, a gateway, observability, and fallback between models. I also help teams integrate AI into their systems.",
+      },
+      {
+        index: "02",
         title: "Grupo Boticário",
-        period: "Jan 2026 — present",
+        period: "Jan 2026 — Nov 2026",
         role: "AI / GenAI and Software Engineer",
         description:
           "RAG over support materials and operational guidance, tool-using agents, and App Super, a PWA for 10,000+ people. Systematizing the work replaced dozens of spreadsheets: about 20% more output for plant coordinators and 10% less time spent allocating teams.",
       },
       {
-        index: "02",
+        index: "03",
         title: "ASSUMTEK",
         period: "Jan 2025 — Jan 2026",
         role: "Full-Stack and Tech Lead",
@@ -261,7 +269,7 @@ const en: Dictionary = {
           "An internal time-tracking and payroll system for contractors, built from scratch, with hour caps, approvals, and dynamic compensation. Tech lead for architecture, demand, and 1:1s. Payroll close dropped by about 70%. Around it, MarTech integrations and pipelines for Power BI.",
       },
       {
-        index: "03",
+        index: "04",
         title: "Sentier",
         period: "Jan 2021 — Jan 2025",
         role: "Founder and Full-Stack",
@@ -283,26 +291,31 @@ const en: Dictionary = {
         title: "Desenvolve Program",
         place: "Grupo Boticário · Full Stack, Node, React, Next, and AI",
         year: "2025",
+        logo: "/logos/grupo-boticario.png",
       },
       {
         title: "Business Fundamentals",
         place: "Harvard Business Education",
         year: "2025",
+        logo: "/logos/harvard.png",
       },
       {
         title: "Data Analysis and BI",
         place: "Google",
         year: "2025",
+        logo: "/logos/google.svg",
       },
       {
         title: "CS50x",
         place: "Harvard University · Computer Science",
         year: "2021",
+        logo: "/logos/harvard.png",
       },
       {
         title: "AWS Academy Cloud Foundations",
         place: "AWS",
         year: "2021",
+        logo: "/logos/aws.svg",
       },
     ],
   },

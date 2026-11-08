@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { RevealText } from "@/components/Reveal";
 import { useSite } from "@/components/SiteProvider";
 
@@ -35,14 +36,28 @@ export function Studies() {
         <p className="eyebrow">{t.coursesLabel}</p>
         <ul className="mt-2 grid md:grid-cols-2 md:gap-x-16">
           {t.courses.map((course) => (
-            <li key={course.title} className="hairline py-7">
-              <p className="text-lg text-bone">{course.title}</p>
-              <p className="mt-2 max-w-prose text-sm leading-relaxed text-bone-dim">
-                {course.place}
-              </p>
-              <p className="mt-3 font-mono text-[0.65rem] tracking-[0.16em] text-cyan uppercase">
-                {course.year}
-              </p>
+            <li key={course.title} className="hairline flex gap-5 py-7">
+              {course.logo ? (
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-paper p-2 ring-1 ring-ink-line md:h-14 md:w-14">
+                  {/* The institution is named right next to it, so the logo is decorative. */}
+                  <Image
+                    src={course.logo}
+                    alt=""
+                    width={40}
+                    height={40}
+                    className="h-full w-full object-contain"
+                  />
+                </span>
+              ) : null}
+              <div>
+                <p className="text-lg text-bone">{course.title}</p>
+                <p className="mt-2 max-w-prose text-sm leading-relaxed text-bone-dim">
+                  {course.place}
+                </p>
+                <p className="mt-3 font-mono text-[0.65rem] tracking-[0.16em] text-cyan uppercase">
+                  {course.year}
+                </p>
+              </div>
             </li>
           ))}
         </ul>
