@@ -24,7 +24,6 @@ export function Studio() {
               src="/felipe.jpg"
               alt={t.photoAlt}
               fill
-              priority
               sizes="(min-width: 768px) 280px, 80vw"
               className="object-cover object-[center_20%]"
             />

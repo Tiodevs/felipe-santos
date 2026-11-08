@@ -34,7 +34,7 @@ export default function OpengraphImage() {
               textTransform: "uppercase",
             }}
           >
-            RAG & agentes
+            AI Engineer
           </span>
           <span
             style={{
@@ -45,12 +45,13 @@ export default function OpengraphImage() {
               color: "#0F9BB8",
             }}
           >
-            CLT ou PJ
+            Sênior
           </span>
         </div>
 
         <span style={{ fontSize: 26, color: "#5A6B73", maxWidth: 900 }}>
-          AI / LLM Engineer. GenAI aplicada em operação, a partir de Curitiba.
+          RAG, agentes com tools e plataformas de LLM. Aberto a novos projetos,
+          a partir de Curitiba.
         </span>
       </div>
     ),

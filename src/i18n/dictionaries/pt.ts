@@ -4,15 +4,15 @@ const pt: Dictionary = {
   meta: {
     title: "Felipe P. dos Santos — AI / LLM Engineer",
     description:
-      "Engenheiro de IA aplicada. RAG, agentes com tools e produto em produção. Aberto a CLT e PJ, a partir de Curitiba.",
+      "AI Engineer Sênior: RAG, agentes com tools e plataformas de LLM, com 6 anos de desenvolvimento full stack. Aberto a novos projetos, a partir de Curitiba.",
     keywords: [
       "AI Engineer",
+      "AI Engineer Sênior",
       "LLM",
+      "vLLM",
       "RAG",
       "agentes",
       "GenAI",
-      "CLT",
-      "PJ",
       "Felipe P. dos Santos",
     ],
   },
@@ -38,18 +38,19 @@ const pt: Dictionary = {
     langCode: "EN",
   },
   hero: {
-    eyebrow: "AI / LLM Engineer · Pleno",
-    location: "Curitiba, Brasil",
-    lines: ["IA aplicada", "RAG &", "agentes"],
-    bodyBefore: "Coloco GenAI em operação de verdade.",
-    bodyStrong: "RAG, agentes com tools e software em produção",
-    bodyAfter:
-      "Aberto a vaga CLT ou contrato PJ, a partir de Curitiba.",
+    status: "Aberto a novos projetos",
+    name: "Felipe Santos",
+    role: ["AI Engineer", "Sênior"],
+    pitchLead: "Crio soluções IA-native em produção.",
+    pitch:
+      "Sistemas em Python e JavaScript na AWS, com pipelines multiagente, RAG, observabilidade e controle de custo, que sobrevivem a usuário real.",
     ctaPrimary: "Baixar CV",
     ctaSecondary: "Ver trabalho",
-    scrollNext: "Rolar para a próxima seção",
+    photoAlt:
+      "Felipe Santos de óculos e suéter, sorrindo de braços cruzados.",
   },
   marquee: [
+    "vLLM",
     "RAG",
     "Agentes",
     "LangChain",

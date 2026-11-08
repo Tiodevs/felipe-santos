@@ -79,15 +79,14 @@ export type Dictionary = {
     langCode: string;
   };
   hero: {
-    eyebrow: string;
-    location: string;
-    lines: [string, string, string];
-    bodyBefore: string;
-    bodyStrong: string;
-    bodyAfter: string;
+    status: string;
+    name: string;
+    role: [string, string];
+    pitchLead: string;
+    pitch: string;
     ctaPrimary: string;
     ctaSecondary: string;
-    scrollNext: string;
+    photoAlt: string;
   };
   marquee: string[];
   studio: {

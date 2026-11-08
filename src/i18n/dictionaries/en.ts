@@ -4,10 +4,12 @@ const en: Dictionary = {
   meta: {
     title: "Felipe P. dos Santos — AI / LLM Engineer",
     description:
-      "Applied GenAI engineer. RAG, multi-tool agents, and production software. Open to CLT employment or a PJ contract, based in Curitiba.",
+      "Senior AI Engineer: RAG, tool-using agents, and LLM platforms, backed by 6 years of full-stack development. Open to new projects, based in Curitiba, Brazil.",
     keywords: [
       "AI Engineer",
+      "Senior AI Engineer",
       "LLM",
+      "vLLM",
       "RAG",
       "agents",
       "GenAI",
@@ -37,18 +39,19 @@ const en: Dictionary = {
     langCode: "PT",
   },
   hero: {
-    eyebrow: "AI / LLM Engineer · Mid-level",
-    location: "Curitiba, Brazil",
-    lines: ["Applied AI", "RAG &", "agents"],
-    bodyBefore: "I ship GenAI into real operations.",
-    bodyStrong: "RAG, multi-tool agents, and production software",
-    bodyAfter:
-      "Open to full-time employment (CLT) or a contractor agreement (PJ), based in Curitiba.",
+    status: "Open to new projects",
+    name: "Felipe Santos",
+    role: ["AI Engineer", "Senior"],
+    pitchLead: "I build AI-native solutions that run in production.",
+    pitch:
+      "Python and JavaScript systems on AWS with multi-agent pipelines, RAG, observability, and cost control that survive real users.",
     ctaPrimary: "Download CV",
     ctaSecondary: "See work",
-    scrollNext: "Scroll to the next section",
+    photoAlt:
+      "Felipe Santos in glasses and a sweater, smiling with arms crossed.",
   },
   marquee: [
+    "vLLM",
     "RAG",
     "Agents",
     "LangChain",
