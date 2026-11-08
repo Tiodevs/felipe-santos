@@ -11,6 +11,18 @@ export type ProjectShot = {
   height?: number;
 };
 
+/** One point of view on the product (client, studio, professional...). */
+export type ProjectAudience = {
+  eyebrow: string;
+  title: string;
+  body: string;
+  points: string[];
+  shot: ProjectShot;
+};
+
+/** A box in the architecture diagram. */
+export type ArchitectureNode = { name: string; detail: string };
+
 export type ProjectCaseStudy = {
   role: string;
   context: string;
@@ -19,6 +31,31 @@ export type ProjectCaseStudy = {
   solution: string;
   highlights: { title: string; body: string }[];
   gallery: ProjectShot[];
+  /** Big facts for the non-technical reader. */
+  numbers?: { value: string; label: string }[];
+  audiences?: ProjectAudience[];
+  /** Request path, left to right, plus the services the API calls. */
+  architecture?: {
+    flow: ArchitectureNode[];
+    services: ArchitectureNode[];
+    note: string;
+  };
+  engineering?: { title: string; body: string }[];
+  stackTable?: { layer: string; tech: string }[];
+  codeHref?: string;
+};
+
+/** Animated cover built from real screenshots of the product. */
+export type ProjectReelCopy = {
+  /** Address shown in the browser bar. */
+  url: string;
+  ariaLabel: string;
+  /** Desktop screens (16:10), shown in turn inside the browser frame. */
+  screens: { src: string; label: string }[];
+  /** Tall phone screenshot, scrolled inside the phone frame. */
+  phone: string;
+  /** Notifications that pop in while the screens play. Three are used. */
+  toasts: { title: string; body: string }[];
 };
 
 export type ProjectCopy = {
@@ -32,6 +69,7 @@ export type ProjectCopy = {
   href?: string;
   metric: { value: string; label: string };
   framed?: boolean;
+  reel?: ProjectReelCopy;
   caseStudy?: ProjectCaseStudy;
 };
 
@@ -97,13 +135,22 @@ export type Dictionary = {
   projectPage: {
     back: string;
     visitLive: string;
+    viewCode: string;
     role: string;
     context: string;
     year: string;
     stack: string;
     challenge: string;
     solution: string;
+    numbers: string;
+    howItWorks: string;
     highlights: string;
+    underTheHood: string;
+    techTitle: string;
+    techIntro: string;
+    architecture: string;
+    alsoTalksTo: string;
+    engineering: string;
     gallery: string;
     openImage: string;
     close: string;
