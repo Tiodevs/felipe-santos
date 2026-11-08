@@ -2,14 +2,6 @@ import type { Locale } from "./config";
 
 export type NavLink = { label: string; href: string };
 
-export type ServiceCopy = {
-  id: string;
-  index: string;
-  title: string;
-  summary: string;
-  deliverables: string[];
-};
-
 export type ProjectShot = {
   src: string;
   alt: string;
@@ -66,8 +58,6 @@ export type Dictionary = {
   nav: {
     links: NavLink[];
     startProject: string;
-    menu: string;
-    close: string;
     openMenu: string;
     closeMenu: string;
     home: string;
@@ -89,18 +79,12 @@ export type Dictionary = {
     photoAlt: string;
   };
   marquee: string[];
-  studio: {
-    eyebrow: string;
-    title: string;
-    p1: string;
-    p2: string;
-    photoAlt: string;
-    stats: { value: string; label: string }[];
-  };
   services: {
     eyebrow: string;
     title: string;
-    items: ServiceCopy[];
+    summary: string;
+    includesLabel: string;
+    deliverables: string[];
   };
   work: {
     eyebrow: string;
