@@ -19,15 +19,12 @@ const en: Dictionary = {
   },
   nav: {
     links: [
-      { label: "About", href: "#estudio" },
       { label: "Work style", href: "#servicos" },
       { label: "Work", href: "#projetos" },
       { label: "Experience", href: "#experiencia" },
       { label: "Studies", href: "#estudos" },
     ],
     startProject: "Download CV",
-    menu: "Menu",
-    close: "Close",
     openMenu: "Open menu",
     closeMenu: "Close menu",
     home: "Felipe — home",
@@ -61,76 +58,17 @@ const en: Dictionary = {
     "AWS",
     "TypeScript",
   ],
-  studio: {
-    eyebrow: "About",
-    title: "Product at scale. Now, applied AI inside the operation.",
-    p1: "I'm Felipe P. dos Santos, an AI engineer at Grupo Boticário. Before that I led engineering at a startup and founded a B2B SaaS. The thread is the same: take a spreadsheet process and turn it into software a team actually uses.",
-    p2: "I'm looking for an AI engineering team, either as a CLT employee or as a PJ contractor. The fit is production GenAI: grounded retrieval, tool-using agents, and operational automation. Degree in Systems Analysis and Development, plus CS50x, AWS Cloud Foundations, and the Desenvolve program.",
-    photoAlt:
-      "Portrait of Felipe P. dos Santos, wearing glasses and a white t-shirt, smiling outdoors.",
-    stats: [
-      { value: "6", label: "Years in technology" },
-      { value: "7k+", label: "Users on the SaaS" },
-      { value: "10k+", label: "People on App Super" },
-      { value: "+20%", label: "Plant coordinator output" },
-    ],
-  },
   services: {
     eyebrow: "Work style",
-    title: "What I bring to a team",
-    items: [
-      {
-        id: "rag",
-        index: "01",
-        title: "RAG",
-        summary:
-          "Grounded retrieval over technical and operational documentation. The model answers from the company's material, not from loose memory.",
-        deliverables: [
-          "Vector index",
-          "Support, training, and operational guidance",
-          "Grounded answers",
-          "Adoption with the people who use it",
-        ],
-      },
-      {
-        id: "agentes",
-        index: "02",
-        title: "Agents",
-        summary:
-          "Agents with several tools inside a harness: database lookup, ticket actions, and Slack messages, orchestrated so the team can run it again.",
-        deliverables: [
-          "Database, board, and Slack tools",
-          "Documented harness",
-          "Repeatable flows",
-          "A trail of what the agent did",
-        ],
-      },
-      {
-        id: "produto",
-        index: "03",
-        title: "Product",
-        summary:
-          "From the data model to deploy. I have shipped a PWA for 10,000+ people and a SaaS with 7,000+ users.",
-        deliverables: [
-          "React, Next.js, and Node.js",
-          "Python, PostgreSQL, and MongoDB",
-          "AWS, Docker, and CI/CD",
-          "Operational metrics",
-        ],
-      },
-      {
-        id: "contratacao",
-        index: "04",
-        title: "CLT or PJ",
-        summary:
-          "I join as a CLT employee or as a PJ contractor. The scope is applied AI engineering, remote from Curitiba.",
-        deliverables: [
-          "Full-time CLT employment",
-          "PJ contract",
-          "Remote, based in Curitiba",
-          "It starts with a conversation",
-        ],
-      },
+    title: "AI-native systems",
+    summary:
+      "I build custom solutions for companies, from process automation to complete systems. The work starts with a diagnosis of the company and runs until the system is built and live.",
+    includesLabel: "What's included",
+    deliverables: [
+      "Company and process diagnosis",
+      "AI process automation",
+      "Custom-built systems",
+      "Multi-agent pipelines and integrations",
     ],
   },
   work: {

@@ -1,59 +1,41 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { Fragment, useRef } from "react";
 import { EASE, gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
-import { RevealText } from "@/components/Reveal";
+import { RevealLine, RevealText } from "@/components/Reveal";
 import { useSite } from "@/components/SiteProvider";
 
+/** Keeps hyphenated words such as "IA-native" from breaking at the hyphen. */
+function keepHyphens(text: string) {
+  return text.split(" ").map((word, i) => (
+    <Fragment key={`${word}-${i}`}>
+      {i > 0 && " "}
+      {word.includes("-") ? (
+        <span className="whitespace-nowrap">{word}</span>
+      ) : (
+        word
+      )}
+    </Fragment>
+  ));
+}
+
+/** The one service on offer, from the diagnosis to the system in production. */
 export function Services() {
   const root = useRef<HTMLElement>(null);
-  const [active, setActive] = useState(0);
   const { dictionary } = useSite();
   const t = dictionary.services;
-  const services = t.items;
-
-  useGSAP(
-    () => {
-      const panels = gsap.utils.toArray<HTMLElement>("[data-service-panel]");
-
-      panels.forEach((panel, i) => {
-        const isActive = i === active;
-        const inner = panel.firstElementChild;
-
-        if (prefersReducedMotion()) {
-          gsap.set(panel, { height: isActive ? "auto" : 0 });
-          gsap.set(inner, { autoAlpha: isActive ? 1 : 0 });
-          return;
-        }
-
-        gsap.to(panel, {
-          height: isActive ? "auto" : 0,
-          duration: 0.7,
-          ease: EASE.quart,
-        });
-        gsap.to(inner, {
-          autoAlpha: isActive ? 1 : 0,
-          y: isActive ? 0 : 12,
-          duration: isActive ? 0.6 : 0.3,
-          delay: isActive ? 0.12 : 0,
-          ease: EASE.soft,
-        });
-      });
-    },
-    { dependencies: [active], scope: root },
-  );
 
   useGSAP(
     () => {
       if (prefersReducedMotion()) return;
 
-      gsap.from("[data-service-row]", {
-        y: 40,
+      gsap.from("[data-service-item]", {
+        y: 24,
         autoAlpha: 0,
-        duration: 1,
-        stagger: 0.09,
+        duration: 0.9,
+        stagger: 0.08,
         ease: EASE.expo,
-        scrollTrigger: { trigger: "[data-service-list]", start: "top 80%" },
+        scrollTrigger: { trigger: "[data-service-items]", start: "top 85%" },
       });
     },
     { scope: root },
@@ -69,80 +51,40 @@ export function Services() {
         <p className="eyebrow md:col-span-4">{t.eyebrow}</p>
         <RevealText
           as="h2"
-          className="display display-lines text-[clamp(2rem,5.4vw,4.5rem)] md:col-span-8"
+          className="display display-lines text-[clamp(2.4rem,7vw,6rem)] md:col-span-8"
         >
-          {t.title}
+          {keepHyphens(t.title)}
         </RevealText>
       </div>
 
-      <div data-service-list className="mt-14 md:mt-20">
-        {services.map((service, i) => {
-          const isActive = i === active;
+      <RevealLine className="mt-14 md:mt-20" />
 
-          return (
-            <div key={service.id} data-service-row className="hairline">
-              <h3>
-                <button
-                  type="button"
-                  onClick={() => setActive(isActive ? -1 : i)}
-                  onMouseEnter={() => setActive(i)}
-                  aria-expanded={isActive}
-                  className="group flex w-full items-center justify-between gap-6 py-7 text-left md:py-9"
-                >
-                  <span className="flex items-baseline gap-5 md:gap-10">
-                    <span className="font-mono text-[0.65rem] tracking-[0.2em] text-bone-dim md:text-xs">
-                      {service.index}
-                    </span>
-                    <span
-                      className={`display text-[clamp(1.6rem,4.6vw,3.5rem)] transition-colors duration-500 ${
-                        isActive
-                          ? "text-cyan"
-                          : "text-bone group-hover:text-cyan"
-                      }`}
-                    >
-                      {service.title}
-                    </span>
-                  </span>
+      <div className="mt-10 grid gap-12 md:mt-14 md:grid-cols-12">
+        <RevealText className="text-lg leading-relaxed text-bone md:col-span-7 md:col-start-5 md:text-2xl md:leading-snug">
+          {t.summary}
+        </RevealText>
 
-                  <span className="relative flex h-3 w-3 shrink-0 items-center justify-center md:h-4 md:w-4">
-                    <span className="absolute h-px w-full bg-bone-dim" />
-                    <span
-                      className={`absolute h-full w-px bg-bone-dim transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${
-                        isActive ? "scale-y-0" : "scale-y-100"
-                      }`}
-                    />
-                  </span>
-                </button>
-              </h3>
-
-              <div
-                data-service-panel
-                className="h-0 overflow-hidden"
-                aria-hidden={!isActive}
+        <div className="md:col-span-8 md:col-start-5">
+          <p className="eyebrow">{t.includesLabel}</p>
+          <ul
+            data-service-items
+            className="mt-6 grid gap-x-10 gap-y-4 sm:grid-cols-2"
+          >
+            {t.deliverables.map((item) => (
+              <li
+                key={item}
+                data-service-item
+                className="flex items-start gap-3 text-base text-bone"
               >
-                <div className="grid gap-8 pb-10 md:grid-cols-12">
-                  <p className="text-base leading-relaxed text-bone-dim md:col-span-6 md:col-start-2 md:text-[1.0625rem]">
-                    {service.summary}
-                  </p>
-                  <ul className="space-y-2 md:col-span-4 md:col-start-9">
-                    {service.deliverables.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-3 text-sm text-bone"
-                      >
-                        <span
-                          className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-cyan"
-                          aria-hidden="true"
-                        />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+                <span
+                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan"
+                  aria-hidden="true"
+                />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

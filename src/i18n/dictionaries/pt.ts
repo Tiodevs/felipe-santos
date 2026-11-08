@@ -18,15 +18,12 @@ const pt: Dictionary = {
   },
   nav: {
     links: [
-      { label: "Sobre", href: "#estudio" },
       { label: "Atuação", href: "#servicos" },
       { label: "Trabalho", href: "#projetos" },
       { label: "Experiência", href: "#experiencia" },
       { label: "Estudos", href: "#estudos" },
     ],
     startProject: "Baixar CV",
-    menu: "Menu",
-    close: "Fechar",
     openMenu: "Abrir menu",
     closeMenu: "Fechar menu",
     home: "Felipe — início",
@@ -60,75 +57,17 @@ const pt: Dictionary = {
     "AWS",
     "TypeScript",
   ],
-  studio: {
-    eyebrow: "Sobre",
-    title: "Produto em escala. Agora, IA aplicada na operação.",
-    p1: "Sou Felipe P. dos Santos, engenheiro de IA no Grupo Boticário. Antes disso liderei engenharia numa startup e fundei um SaaS B2B. O fio é o mesmo: tirar processo de planilha e colocar em software que o time usa.",
-    p2: "Procuro um time de engenharia de IA, em CLT ou PJ. O encaixe é GenAI em produção: retrieval com fonte, agentes com tools e automação de operação. Formação em Análise e Desenvolvimento de Sistemas, com CS50x, AWS Cloud Foundations e o programa Desenvolve.",
-    photoAlt: "Retrato de Felipe P. dos Santos, de óculos e camiseta branca, sorrindo ao ar livre.",
-    stats: [
-      { value: "6", label: "Anos em tecnologia" },
-      { value: "7 mil+", label: "Usuários no SaaS" },
-      { value: "10 mil+", label: "Pessoas no App Super" },
-      { value: "+20%", label: "Produtividade na planta" },
-    ],
-  },
   services: {
     eyebrow: "Atuação",
-    title: "O que eu levo para um time",
-    items: [
-      {
-        id: "rag",
-        index: "01",
-        title: "RAG",
-        summary:
-          "Retrieval com fonte sobre documentação técnica e operacional. O modelo responde em cima do material da empresa, não de memória solta.",
-        deliverables: [
-          "Indexação em base vetorial",
-          "Suporte, treinos e orientação operacional",
-          "Resposta com grounding",
-          "Adoção com quem usa no dia a dia",
-        ],
-      },
-      {
-        id: "agentes",
-        index: "02",
-        title: "Agentes",
-        summary:
-          "Agentes com várias tools dentro de um harness: consulta a banco, ação em ticket e mensagem no Slack, com orquestração que o time consegue repetir.",
-        deliverables: [
-          "Tools de banco, board e Slack",
-          "Harness documentado",
-          "Fluxos repetíveis",
-          "Rastro do que o agente fez",
-        ],
-      },
-      {
-        id: "produto",
-        index: "03",
-        title: "Produto",
-        summary:
-          "Do modelo de dados ao deploy. Já entreguei um PWA para mais de 10 mil pessoas e um SaaS com mais de 7 mil usuários.",
-        deliverables: [
-          "React, Next.js e Node.js",
-          "Python, PostgreSQL e MongoDB",
-          "AWS, Docker e CI/CD",
-          "Métrica de operação",
-        ],
-      },
-      {
-        id: "contratacao",
-        index: "04",
-        title: "CLT ou PJ",
-        summary:
-          "Entro como empregado CLT ou como pessoa jurídica. O escopo é engenharia de IA aplicada, remoto a partir de Curitiba.",
-        deliverables: [
-          "CLT em regime integral",
-          "PJ com contrato",
-          "Remoto, base em Curitiba",
-          "Começo por uma conversa",
-        ],
-      },
+    title: "Sistemas IA-native",
+    summary:
+      "Crio soluções personalizadas para empresas, da automação de processos à criação de sistemas completos. O trabalho começa com um diagnóstico da empresa e vai até o sistema pronto e rodando.",
+    includesLabel: "O que inclui",
+    deliverables: [
+      "Diagnóstico da empresa e dos processos",
+      "Automação de processos com IA",
+      "Criação de sistemas sob medida",
+      "Pipelines multiagente e integrações",
     ],
   },
   work: {

@@ -2,9 +2,6 @@ import dynamic from "next/dynamic";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
 
-const Studio = dynamic(() =>
-  import("@/components/Studio").then((mod) => mod.Studio),
-);
 const Services = dynamic(() =>
   import("@/components/Services").then((mod) => mod.Services),
 );
@@ -23,7 +20,6 @@ export default function Home() {
     <>
       <Hero />
       <Marquee />
-      <Studio />
       <Services />
       <Work />
       <Process />

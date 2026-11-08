@@ -223,22 +223,8 @@ export function Header() {
               onClick={() => toggle(!open)}
               aria-expanded={open}
               aria-label={open ? t.closeMenu : t.openMenu}
-              className="group flex items-center gap-3"
+              className="group -mr-1.5 flex h-10 w-10 items-center justify-center"
             >
-              <span className="grid text-xs tracking-[0.16em] text-bone uppercase">
-                <span
-                  className={`col-start-1 row-start-1 ${open ? "invisible" : ""}`}
-                  aria-hidden={open}
-                >
-                  {t.menu}
-                </span>
-                <span
-                  className={`col-start-1 row-start-1 ${open ? "" : "invisible"}`}
-                  aria-hidden={!open}
-                >
-                  {t.close}
-                </span>
-              </span>
               <span className="relative flex h-3 w-7 flex-col justify-between">
                 <span
                   className="h-px w-full bg-bone transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]"
