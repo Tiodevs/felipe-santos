@@ -15,6 +15,6 @@ export const SITE = {
   name: "Felipe P. dos Santos",
   tagline: "AI / LLM Engineer",
   description:
-    "Engenheiro de IA aplicada. RAG, agentes e produto em produção. Aberto a CLT e PJ, a partir de Curitiba.",
+    "AI Engineer Sênior: RAG, agentes com tools e plataformas de LLM, com 6 anos de desenvolvimento full stack. Aberto a novos projetos, a partir de Curitiba.",
   url: "https://mefelipe.com.br",
 } as const;

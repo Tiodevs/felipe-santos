@@ -1,6 +1,6 @@
 # Felipe P. dos Santos — AI / LLM Engineer
 
-Página para recrutadores. O visual segue o site da Leemia: tipografia grande, malha, tema claro/escuro e movimento com GSAP. O conteúdo é o Felipe, aberto a vaga CLT ou contrato PJ.
+Página para recrutadores. O visual segue o site da Leemia: tipografia grande, tema claro/escuro e movimento com GSAP. Na capa, o retrato recortado (`public/felipe-hero-bw.webp`) reage ao mouse e o nome corre por cima dele. O conteúdo é o Felipe, AI Engineer Sênior e aberto a novos projetos.
 
 ## Stack
 

@@ -167,3 +167,49 @@ header.fixed,
     visibility: visible !important;
   }
 }
+
+/* Hero. These run in CSS so the portrait and the name band move from the
+   first paint instead of waiting for hydration. */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 7%, 0);
+  }
+}
+
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18%, 0);
+  }
+}
+
+@keyframes hero-name-loop {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.hero-rise {
+  animation: hero-rise 1.6s var(--ease-out-expo) 0.1s both;
+}
+
+.hero-name-in {
+  animation: hero-fade-up 1.4s var(--ease-out-expo) 0.45s both;
+}
+
+.hero-name-track {
+  animation: hero-name-loop 46s linear infinite;
+}
+
+.hero[data-offscreen] .hero-name-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise,
+  .hero-name-in,
+  .hero-name-track {
+    animation: none;
+  }
+}
