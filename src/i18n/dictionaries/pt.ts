@@ -18,9 +18,9 @@ const pt: Dictionary = {
   },
   nav: {
     links: [
-      { label: "Atuação", href: "#servicos" },
-      { label: "Trabalho", href: "#projetos" },
-      { label: "Experiência", href: "#experiencia" },
+      { label: "Serviço", href: "#servicos" },
+      { label: "Projetos", href: "#projetos" },
+      { label: "Carreira profissional", href: "#experiencia" },
       { label: "Estudos", href: "#estudos" },
     ],
     startProject: "Baixar CV",
@@ -42,7 +42,7 @@ const pt: Dictionary = {
     pitch:
       "Sistemas em Python e JavaScript na AWS, com pipelines multiagente, RAG, observabilidade e controle de custo, que sobrevivem a usuário real.",
     ctaPrimary: "Baixar CV",
-    ctaSecondary: "Ver trabalho",
+    ctaSecondary: "Ver projetos",
     photoAlt:
       "Felipe Santos de óculos e suéter, sorrindo de braços cruzados.",
   },
@@ -58,7 +58,7 @@ const pt: Dictionary = {
     "TypeScript",
   ],
   services: {
-    eyebrow: "Atuação",
+    eyebrow: "Serviço",
     title: "Sistemas IA-native",
     summary:
       "Crio soluções personalizadas para empresas, da automação de processos à criação de sistemas completos. O trabalho começa com um diagnóstico da empresa e vai até o sistema pronto e rodando.",
@@ -71,7 +71,7 @@ const pt: Dictionary = {
     ],
   },
   work: {
-    eyebrow: "Trabalho",
+    eyebrow: "Projetos",
     title: "Casos para abrir numa conversa.",
     openProject: "Abrir caso",
     imageAlt: "Capa do caso {title}",
@@ -240,19 +240,27 @@ const pt: Dictionary = {
     fileName: "Felipe P. dos Santos - CV.pdf",
   },
   process: {
-    eyebrow: "Experiência",
+    eyebrow: "Carreira profissional",
     title: "Onde eu já coloquei software em operação.",
     steps: [
       {
         index: "01",
+        title: "Unimed",
+        period: "Nov 2026 — atual",
+        role: "AI Engineer Sênior",
+        description:
+          "Responsável pela plataforma de LLM própria da operadora, base dos projetos de IA: vLLM em GPU na AWS, gateway, observabilidade e fallback entre modelos. Também apoio os times na integração da IA aos sistemas.",
+      },
+      {
+        index: "02",
         title: "Grupo Boticário",
-        period: "Jan 2026 — atual",
+        period: "Jan 2026 — Nov 2026",
         role: "AI / GenAI e Software Engineer",
         description:
           "RAG sobre materiais de suporte e orientação operacional, agentes com tools e o App Super, PWA para mais de 10 mil pessoas. A sistematização substituiu dezenas de planilhas: cerca de 20% a mais de produtividade dos coordenadores e 10% a menos no tempo de alocação.",
       },
       {
-        index: "02",
+        index: "03",
         title: "ASSUMTEK",
         period: "Jan 2025 — Jan 2026",
         role: "Full-Stack e Tech Lead",
@@ -260,7 +268,7 @@ const pt: Dictionary = {
           "Sistema interno de ponto e folha para PJ, do zero, com regras de horas, aprovações e remuneração. Tech lead de arquitetura, demandas e 1:1. O fechamento da folha caiu cerca de 70% no tempo operacional. No entorno, integrações MarTech e pipelines para Power BI.",
       },
       {
-        index: "03",
+        index: "04",
         title: "Sentier",
         period: "Jan 2021 — Jan 2025",
         role: "Fundador e Full-Stack",
@@ -282,26 +290,31 @@ const pt: Dictionary = {
         title: "Programa Desenvolve",
         place: "Grupo Boticário · Full Stack, Node, React, Next e IA",
         year: "2025",
+        logo: "/logos/grupo-boticario.png",
       },
       {
         title: "Business Fundamentals",
         place: "Harvard Business Education",
         year: "2025",
+        logo: "/logos/harvard.png",
       },
       {
         title: "Análise de Dados e BI",
         place: "Google",
         year: "2025",
+        logo: "/logos/google.svg",
       },
       {
         title: "CS50x",
         place: "Harvard University · Ciência da Computação",
         year: "2021",
+        logo: "/logos/harvard.png",
       },
       {
         title: "AWS Academy Cloud Foundations",
         place: "AWS",
         year: "2021",
+        logo: "/logos/aws.svg",
       },
     ],
   },
