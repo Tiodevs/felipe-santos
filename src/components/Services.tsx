@@ -3,7 +3,7 @@
 import { Fragment, useRef, useState, type CSSProperties } from "react";
 import { EASE, ScrollTrigger, gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
 import { RevealText } from "@/components/Reveal";
-import { ServiceStack } from "@/components/ServiceStack";
+import { DESKTOP, ServicePlate, ServiceStack } from "@/components/ServiceStack";
 import { useSite } from "@/components/SiteProvider";
 
 /** Keeps hyphenated words such as "IA-native" from breaking at the hyphen. */
@@ -22,12 +22,11 @@ function keepHyphens(text: string) {
 
 /** Viewport heights of scrolling each step holds the section on desktop. */
 const STEP_SCROLL = 50;
-const DESKTOP = "(min-width: 1024px)";
 
 /**
  * The one service on offer, in three stages. On desktop the section holds
  * still while the page scrolls through it and the scroll picks the stage; on
- * smaller screens the stage beside the middle of the screen is the active one.
+ * smaller screens each stage is shown in turn, with its own plate.
  */
 export function Services() {
   const root = useRef<HTMLElement>(null);
@@ -67,27 +66,22 @@ export function Services() {
         });
       });
 
-      mm.add("(max-width: 1023px)", () => {
-        gsap.utils.toArray<HTMLElement>("[data-service-step]", el).forEach((step, i) => {
-          ScrollTrigger.create({
-            trigger: step,
-            start: "top 70%",
-            end: "bottom 70%",
-            onToggle: (self) => {
-              if (self.isActive) setActive(i);
-            },
+      if (!prefersReducedMotion()) {
+        const steps = gsap.utils.toArray<HTMLElement>("[data-service-step]", el);
+        const enter = { x: -28, autoAlpha: 0, duration: 0.9, ease: EASE.expo };
+
+        // Desktop: the buttons come in together; phones: each stage as it shows up.
+        mm.add(DESKTOP, () => {
+          gsap.from(steps, {
+            ...enter,
+            stagger: 0.1,
+            scrollTrigger: { trigger: el.querySelector("[data-service-steps]"), start: "top 85%" },
           });
         });
-      });
-
-      if (!prefersReducedMotion()) {
-        gsap.from(el.querySelectorAll("[data-service-step]"), {
-          x: -28,
-          autoAlpha: 0,
-          duration: 0.9,
-          stagger: 0.1,
-          ease: EASE.expo,
-          scrollTrigger: { trigger: el.querySelector("[data-service-steps]"), start: "top 85%" },
+        mm.add("(max-width: 1023px)", () => {
+          steps.forEach((step) => {
+            gsap.from(step, { ...enter, scrollTrigger: { trigger: step, start: "top 85%" } });
+          });
         });
       }
 
@@ -138,38 +132,44 @@ export function Services() {
             </RevealText>
           </div>
 
-          {/* On phones the stack stays under the header while the steps pass. */}
-          <div className="sticky top-[var(--header-h)] z-10 -mx-[var(--gutter)] mt-10 flex h-[min(44vh,22rem)] justify-center bg-ink py-3 after:absolute after:inset-x-0 after:top-full after:h-8 after:bg-linear-to-b after:from-ink after:to-transparent lg:static lg:z-auto lg:col-span-4 lg:mx-0 lg:mt-0 lg:h-[min(36rem,calc(100vh-var(--header-h)-6rem))] lg:bg-transparent lg:py-0 lg:after:hidden">
+          <div className="hidden lg:col-span-4 lg:flex lg:h-[min(36rem,calc(100vh-var(--header-h)-6rem))] lg:justify-center">
             <ServiceStack steps={t.steps} active={active} onSelect={select} />
           </div>
 
-          <div className="mt-10 lg:col-span-4 lg:mt-0 lg:pl-6">
+          <div className="mt-12 lg:col-span-4 lg:mt-0 lg:pl-6">
             <p className="eyebrow">{t.stepsLabel}</p>
-            <ol data-service-steps className="mt-6 grid gap-3">
+            <ol data-service-steps className="mt-8 grid gap-14 lg:mt-6 lg:gap-3">
               {t.steps.map((step, i) => {
                 const isActive = i === active;
+                const number = String(i + 1).padStart(2, "0");
                 return (
                   <li key={step.id} data-service-step>
+                    {/* Phones: the stage's own plate, then its name. */}
+                    <div className="max-w-[26rem] lg:hidden">
+                      <ServicePlate id={step.id} />
+                    </div>
+                    <p className="mt-8 inline-block rounded-[2px] border border-bone/30 px-5 py-3.5 font-mono text-[0.72rem] tracking-[0.2em] text-bone uppercase lg:hidden">
+                      <span className="mr-3 opacity-60">{number}</span>
+                      {step.title}
+                    </p>
                     <button
                       type="button"
                       onClick={() => select(i)}
                       aria-current={isActive ? "step" : undefined}
-                      className={`relative w-full overflow-hidden rounded-[2px] border px-5 py-3.5 text-left font-mono text-[0.72rem] tracking-[0.2em] uppercase transition-colors duration-500 ${
+                      className={`relative hidden w-full overflow-hidden rounded-[2px] border px-5 py-3.5 text-left font-mono text-[0.72rem] tracking-[0.2em] uppercase transition-colors duration-500 lg:block ${
                         isActive
                           ? "border-cyan bg-cyan text-ink-deep"
                           : "border-ink-line text-bone-dim hover:border-cyan/60 hover:text-bone"
                       }`}
                     >
-                      <span className="mr-3 opacity-60">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
+                      <span className="mr-3 opacity-60">{number}</span>
                       {step.title}
                       <span
                         ref={(node) => {
                           bars.current[i] = node;
                         }}
                         aria-hidden="true"
-                        className={`absolute inset-x-0 bottom-0 hidden h-0.5 origin-left bg-ink-deep/35 lg:block ${
+                        className={`absolute inset-x-0 bottom-0 h-0.5 origin-left bg-ink-deep/35 ${
                           isActive ? "" : "opacity-0"
                         }`}
                         style={{ transform: "scaleX(0)" }}
@@ -184,7 +184,7 @@ export function Services() {
                       <div className="overflow-hidden">
                         {/* A fixed height on desktop keeps the buttons from
                             shifting as stages with longer text open. */}
-                        <p className="pt-4 pb-5 text-base leading-relaxed text-bone lg:min-h-[10.5rem] lg:max-w-[36ch]">
+                        <p className="pt-4 text-base leading-relaxed text-bone lg:min-h-[10.5rem] lg:max-w-[36ch] lg:pb-5">
                           {step.body}
                         </p>
                       </div>

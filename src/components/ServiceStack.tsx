@@ -16,12 +16,16 @@ const VY = 0.5 * S;
 const PLATE_Y = [110, 260, 410];
 const TAU = Math.PI * 2;
 
+/** The stacked, animated version is desktop only; phones get one plate per stage. */
+export const DESKTOP = "(min-width: 1024px)";
+
 type UV = readonly [number, number];
 
 const r2 = (n: number) => Math.round(n * 100) / 100;
 const project = (cy: number, [u, v]: UV) => [r2(CX + UX * u), r2(cy + VY * v)] as const;
 const path = (cy: number, points: UV[], close = false) =>
   `M${points.map((p) => project(cy, p).join(" ")).join("L")}${close ? "Z" : ""}`;
+const plate = (cy: number) => path(cy, [[0, -2], [2, 0], [0, 2], [-2, 0]], true);
 const diamond = (cy: number, [u, v]: UV, r: number) =>
   path(cy, [[u, v - r], [u + r, v], [u, v + r], [u - r, v]], true);
 const ring = (cy: number, rho: number) => ({ cx: CX, cy, rx: r2(UX * rho), ry: r2(VY * rho) });
@@ -249,65 +253,78 @@ export function ServiceStack({ steps, active, onSelect }: ServiceStackProps) {
   const activate = useRef<(index: number) => void>(() => {});
 
   useGSAP(
-    (_context, contextSafe) => {
+    () => {
       const svg = root.current;
-      if (!svg || !contextSafe) return;
+      if (!svg) return;
 
-      const reduce = prefersReducedMotion();
-      const layerAt = (i: number) => svg.querySelector<SVGGElement>(`[data-layer="${i}"]`);
-      const loops = steps.map((step, i) => {
-        const layer = layerAt(i);
-        return reduce || !layer ? null : buildLoop(step.id, layer, PLATE_Y[i]);
-      });
-
-      let inView = false;
-      let current = -1;
-
-      // Only the active plate animates, and only while the stack is on screen.
-      const sync = () =>
-        loops.forEach((loop, i) => {
-          if (!loop) return;
-          if (inView && i === current) loop.play();
-          else loop.pause();
+      // The stack is hidden on phones, so nothing runs there.
+      const mm = gsap.matchMedia();
+      mm.add(DESKTOP, (context) => {
+        const reduce = prefersReducedMotion();
+        const layerAt = (i: number) => svg.querySelector<SVGGElement>(`[data-layer="${i}"]`);
+        const loops = steps.map((step, i) => {
+          const layer = layerAt(i);
+          return reduce || !layer ? null : buildLoop(step.id, layer, PLATE_Y[i]);
         });
 
-      activate.current = contextSafe((i: number) => {
-        if (i === current) return;
-        current = i;
-        const layer = layerAt(i);
-        if (!reduce && layer) {
-          gsap.fromTo(
-            layer.querySelectorAll("[data-draw]"),
-            { drawSVG: "0%" },
-            { drawSVG: "100%", duration: 0.9, stagger: 0.05, ease: "power2.inOut", overwrite: true },
-          );
-        }
-        sync();
-      });
+        let inView = false;
+        let current = -1;
 
-      ScrollTrigger.create({
-        trigger: svg,
-        start: "top bottom",
-        end: "bottom top",
-        onToggle: (self) => {
-          inView = self.isActive;
+        // Only the active plate animates, and only while the stack is on screen.
+        const sync = () =>
+          loops.forEach((loop, i) => {
+            if (!loop) return;
+            if (inView && i === current) loop.play();
+            else loop.pause();
+          });
+
+        // Registered on this media query's own context, so the draw-ins it
+        // starts later are reverted with it. (Using useGSAP's contextSafe in
+        // here nests the two contexts in a loop and overflows the stack.)
+        activate.current = context.add("activate", (i: number) => {
+          if (i === current) return;
+          current = i;
+          const layer = layerAt(i);
+          if (!reduce && layer) {
+            gsap.fromTo(
+              layer.querySelectorAll("[data-draw]"),
+              { drawSVG: "0%" },
+              { drawSVG: "100%", duration: 0.9, stagger: 0.05, ease: "power2.inOut", overwrite: true },
+            );
+          }
           sync();
-        },
+        }) as (index: number) => void;
+
+        ScrollTrigger.create({
+          trigger: svg,
+          start: "top bottom",
+          end: "bottom top",
+          onToggle: (self) => {
+            inView = self.isActive;
+            sync();
+          },
+        });
+
+        if (!reduce) {
+          // The plates stack up from the bottom one as the section comes in.
+          gsap.from(svg.querySelectorAll("[data-layer-in]"), {
+            y: -36,
+            autoAlpha: 0,
+            duration: 1,
+            stagger: 0.14,
+            ease: EASE.expo,
+            scrollTrigger: { trigger: svg, start: "top 80%" },
+          });
+        }
+
+        activate.current(activeRef.current);
+
+        return () => {
+          activate.current = () => {};
+        };
       });
 
-      if (!reduce) {
-        // The plates stack up from the bottom one as the section comes in.
-        gsap.from(svg.querySelectorAll("[data-layer-in]"), {
-          y: -36,
-          autoAlpha: 0,
-          duration: 1,
-          stagger: 0.14,
-          ease: EASE.expo,
-          scrollTrigger: { trigger: svg, start: "top 80%" },
-        });
-      }
-
-      activate.current(activeRef.current);
+      return () => mm.revert();
     },
     { scope: root },
   );
@@ -340,12 +357,36 @@ export function ServiceStack({ steps, active, onSelect }: ServiceStackProps) {
               className="svc-layer"
               onClick={() => onSelect(i)}
             >
-              <path className="svc-plate" d={path(cy, [[0, -2], [2, 0], [0, 2], [-2, 0]], true)} />
+              <path className="svc-plate" d={plate(cy)} />
               <Art cy={cy} />
             </g>
           </g>
         );
       })}
+    </svg>
+  );
+}
+
+/**
+ * One plate on its own, lit and still. Phones show one per stage, above its
+ * name and description, instead of the stack.
+ */
+export function ServicePlate({ id }: { id: ServiceStepId }) {
+  const Art = ART[id];
+  const cy = 105;
+
+  return (
+    <svg
+      viewBox="0 0 360 210"
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+      className="h-auto w-full"
+    >
+      <g className="svc-layer" data-active="true" data-still="">
+        <path className="svc-plate" d={plate(cy)} />
+        <Art cy={cy} />
+      </g>
     </svg>
   );
 }
