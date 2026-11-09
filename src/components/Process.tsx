@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { EASE, gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
 import { RevealText } from "@/components/Reveal";
 import { useSite } from "@/components/SiteProvider";
@@ -70,7 +71,7 @@ export function Process() {
 
         <div data-steps className="relative mt-16 md:mt-24">
           <div
-            className="pointer-events-none absolute top-2 left-[3px] h-full w-px bg-ink-line md:left-[calc(33.333%+3px)]"
+            className="pointer-events-none absolute top-5 bottom-0 left-[3px] w-px bg-ink-line md:top-6 md:left-[calc(33.333%+3px)]"
             aria-hidden="true"
           >
             <div data-spine className="h-full w-full origin-top bg-cyan" />
@@ -85,12 +86,31 @@ export function Process() {
               >
                 <span
                   data-step-dot
-                  className="absolute top-2 left-0 h-[7px] w-[7px] rounded-full bg-cyan md:left-[calc(33.333%)]"
+                  className="absolute top-5 left-0 h-[7px] w-[7px] rounded-full bg-cyan md:top-6 md:left-[calc(33.333%)]"
                   aria-hidden="true"
                 />
 
                 <div className="md:col-span-4 md:pr-12">
-                  <h3 className="display text-[clamp(1.5rem,3.2vw,2.5rem)]">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-paper p-2 ring-1 ring-ink-line md:h-14 md:w-14">
+                    {/* The company is named right below, so the logo is decorative. */}
+                    {step.logo ? (
+                      <Image
+                        src={step.logo}
+                        alt=""
+                        width={40}
+                        height={40}
+                        className="h-full w-full object-contain"
+                      />
+                    ) : (
+                      <span
+                        className="display text-2xl text-ink-deep md:text-3xl"
+                        aria-hidden="true"
+                      >
+                        {step.title.charAt(0)}
+                      </span>
+                    )}
+                  </span>
+                  <h3 className="display mt-5 text-[clamp(1.5rem,3.2vw,2.5rem)]">
                     {step.title}
                   </h3>
                   <p className="mt-3 font-mono text-[0.65rem] tracking-[0.16em] text-bone-dim uppercase">

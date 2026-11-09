@@ -18,10 +18,11 @@ const pt: Dictionary = {
   },
   nav: {
     links: [
+      { label: "Carreira profissional", href: "#experiencia" },
       { label: "Serviço", href: "#servicos" },
       { label: "Projetos", href: "#projetos" },
-      { label: "Carreira profissional", href: "#experiencia" },
       { label: "Estudos", href: "#estudos" },
+      { label: "Competências", href: "#competencias" },
     ],
     startProject: "Baixar CV",
     openMenu: "Abrir menu",
@@ -60,19 +61,28 @@ const pt: Dictionary = {
   services: {
     eyebrow: "Serviço",
     title: "Sistemas IA-native",
-    summary:
-      "Crio soluções personalizadas para empresas, da automação de processos à criação de sistemas completos. O trabalho começa com um diagnóstico da empresa e vai até o sistema pronto e rodando.",
-    includesLabel: "O que inclui",
-    deliverables: [
-      "Diagnóstico da empresa e dos processos",
-      "Automação de processos com IA",
-      "Criação de sistemas sob medida",
-      "Pipelines multiagente e integrações",
+    stepsLabel: "Etapas do processo",
+    steps: [
+      {
+        id: "diagnose",
+        title: "Diagnóstico",
+        body: "Começa com uma conversa sobre o negócio e as metas. Depois mapeio processos, sistemas e dados para encontrar onde se perde tempo e dinheiro, e escolhemos juntos as oportunidades em que a IA traz mais retorno.",
+      },
+      {
+        id: "build",
+        title: "Implementação",
+        body: "Construo a automação, os agentes ou o sistema sob medida, integrados às ferramentas que a empresa já usa, e preparo a equipe para usar a solução com autonomia.",
+      },
+      {
+        id: "maintain",
+        title: "Manutenção",
+        body: "Depois da entrega, acompanho uso, custo e resultados, corrijo o que aparecer e evoluo a solução conforme o negócio muda.",
+      },
     ],
   },
   work: {
     eyebrow: "Projetos",
-    title: "Casos para abrir numa conversa.",
+    title: "Do problema ao sistema no ar.",
     openProject: "Ver projeto",
     imageAlt: "Capa do projeto {title}",
   },
@@ -86,13 +96,12 @@ const pt: Dictionary = {
     stack: "Stack",
     challenge: "O problema",
     solution: "O que eu fiz",
-    numbers: "Em números",
     howItWorks: "Como funciona",
     highlights: "Por que dá para confiar",
     underTheHood: "Por dentro",
     techTitle: "A parte técnica",
     techIntro:
-      "Para quem quer ver o motor: como as peças conversam, as decisões que protegem a agenda e a stack completa.",
+      "Para quem quer ver o motor: como as peças conversam, as decisões de engenharia e a stack completa.",
     architecture: "Arquitetura",
     alsoTalksTo: "A API também fala com",
     engineering: "Decisões de engenharia",
@@ -105,47 +114,73 @@ const pt: Dictionary = {
   },
   projects: [
     {
-      slug: "leemia",
-      title: "Leemia",
+      slug: "sistema-de-agendamentos",
+      title: "Sistema de agendamentos",
       category: "Produto próprio",
       year: "2026",
       summary:
-        "Agenda online para estúdios e salões. O cliente marca em três toques, o estúdio cuida de tudo num painel e o mesmo horário nunca é vendido duas vezes.",
+        "Agenda online para barbearias e salões, que nasceu na Sentier e passou de 7 mil usuários. O cliente marca em três toques, o salão cuida de tudo num painel e o mesmo horário nunca é vendido duas vezes.",
       stack: ["Next.js", "React", "Express", "PostgreSQL", "Prisma"],
       href: "https://agendamento.mefelipe.com.br",
-      metric: { value: "3 toques", label: "para o cliente marcar um horário" },
-      reel: {
-        url: "agendamento.mefelipe.com.br",
+      metric: { value: "7 mil+", label: "usuários cadastrados" },
+      // Two clients want the same slot at once, and the lock lets one
+      // through. The screen texts, the 409 message and the e-mail subject
+      // come from the product's code; service, price and Marina from its seed.
+      booking: {
         ariaLabel:
-          "Animação com telas reais da Leemia: a reserva no celular, o painel do estúdio, o painel do profissional e os horários de funcionamento.",
-        screens: [
-          { src: "/projetos/leemia/reserva.webp", label: "Reserva em três passos" },
-          { src: "/projetos/leemia/admin-visao-geral.webp", label: "Painel do estúdio" },
-          { src: "/projetos/leemia/profissional-painel.webp", label: "Painel do profissional" },
-          { src: "/projetos/leemia/admin-expediente.webp", label: "Horários e feriados" },
-        ],
-        phone: "/projetos/leemia/mobile-reserva.webp",
-        toasts: [
-          { title: "Horário reservado", body: "Corte masculino · ter, 10/11 · 10:00" },
-          { title: "Confirmação enviada", body: "E-mail para o cliente e para a profissional" },
-          { title: "Agenda atualizada", body: "Marina Costa · próximo atendimento às 10:00" },
+          "Animação do sistema de agendamentos: dois clientes tentam marcar as 10:00 com a Marina ao mesmo tempo. A agenda trava, o primeiro leva o horário, o segundo recebe o aviso de horário ocupado, marca as 10:45, e os dois recebem o e-mail de confirmação.",
+        mark: "/projetos/sistema-de-agendamentos/marca.svg",
+        clients: ["Cliente 1", "Cliente 2"],
+        phone: {
+          title: "Data e horário",
+          steps: ["Serviço", "Profissional", "Horário"],
+          choice: "Corte masculino · Marina Costa",
+          days: ["seg 9", "ter 10", "qua 11"],
+          slots: ["09:45", "10:00", "10:15", "10:30", "10:45", "11:00"],
+          summaryTitle: "Resumo",
+          summary: [
+            { label: "Serviço", value: "Corte masculino" },
+            { label: "Profissional", value: "Marina Costa" },
+            { label: "Data", value: "ter, 10/11" },
+            { label: "Horário", value: "{time}" },
+            { label: "Duração", value: "45 min" },
+            { label: "Total", value: "R$ 80,00" },
+          ],
+          confirm: "Confirmar agendamento",
+          success: "Agendamento realizado com sucesso",
+          conflict: "O funcionário já possui um agendamento neste horário",
+          email: "Horário reservado: Corte masculino · {time}",
+        },
+        wanted: "10:00",
+        fallback: "10:45",
+        taken: ["09:45", "10:00", "10:15", "10:30"],
+        agenda: {
+          title: "Agenda · Marina Costa",
+          day: "ter, 10/11",
+          rows: ["09:30", "09:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15"],
+          busy: "Agendado",
+          service: "Corte masculino",
+        },
+        lock: "FOR UPDATE",
+        logTitle: "API · transação",
+        log: [
+          "Cliente 1 trava a agenda da Marina",
+          "Cliente 2 espera a trava",
+          "Cliente 1 · 10:00 livre · reserva criada",
+          "Cliente 2 · 10:00 ocupado · 409",
+          "Cliente 2 · 10:45 livre · reserva criada",
+          "E-mail para o cliente e a profissional",
         ],
       },
       caseStudy: {
-        role: "Produto, design e engenharia",
-        context: "Produto próprio, no ar",
+        role: "Fundador e Full-Stack",
+        context: "Sentier · produto próprio, no ar",
         overview:
-          "A Leemia tira a agenda do estúdio do caderno. O cliente reserva sozinho, a qualquer hora, em três toques. O estúdio cuida de agenda, equipe e horários num painel, e cada profissional acompanha o próprio dia.",
+          "O sistema de agendamentos tira a agenda da barbearia e do salão do caderno. Nasceu na Sentier e passou de 7 mil usuários. Hoje o cliente reserva sozinho, a qualquer hora, em três toques, o estúdio cuida de agenda, equipe e horários num painel, e cada profissional acompanha o próprio dia.",
         challenge:
           "Em muito estúdio, marcar um corte ainda depende de ligação, mensagem e um caderno na recepção. É assim que o mesmo horário acaba vendido duas vezes, o recado se perde e o profissional só descobre a agenda do dia quando chega.",
         solution:
           "Criei, do zero, uma agenda online que só mostra horário que existe de verdade. A grade sai do expediente do estúdio e de cada profissional, de 15 em 15 minutos. Cada pessoa vê o que precisa: o cliente marca e cancela os próprios horários, o estúdio administra tudo e o profissional entra por convite.",
-        numbers: [
-          { value: "3", label: "toques para marcar: serviço, profissional e horário" },
-          { value: "15 min", label: "de precisão na grade de horários" },
-          { value: "2", label: "travas contra horário duplicado: no código e no banco" },
-          { value: "10 min", label: "para desfazer uma mudança na agenda" },
-        ],
         audiences: [
           {
             eyebrow: "Para o cliente",
@@ -157,7 +192,7 @@ const pt: Dictionary = {
               "Até 60 dias de antecedência",
             ],
             shot: {
-              src: "/projetos/leemia/reserva.webp",
+              src: "/projetos/sistema-de-agendamentos/reserva.webp",
               alt: "Tela de reserva com calendário, horários livres e o resumo do agendamento.",
               caption: "",
               width: 2160,
@@ -174,7 +209,7 @@ const pt: Dictionary = {
               "Feriados e dias especiais",
             ],
             shot: {
-              src: "/projetos/leemia/admin-visao-geral.webp",
+              src: "/projetos/sistema-de-agendamentos/admin-visao-geral.webp",
               alt: "Visão geral do estúdio com agendamentos, receita, ticket médio e ocupação.",
               caption: "",
               width: 2160,
@@ -191,7 +226,7 @@ const pt: Dictionary = {
               "E-mail a cada novo horário",
             ],
             shot: {
-              src: "/projetos/leemia/profissional-painel.webp",
+              src: "/projetos/sistema-de-agendamentos/profissional-painel.webp",
               alt: "Painel da profissional com receita, ocupação e próximos atendimentos.",
               caption: "",
               width: 2160,
@@ -219,50 +254,50 @@ const pt: Dictionary = {
         ],
         gallery: [
           {
-            src: "/projetos/leemia/landing.webp",
-            alt: "Página inicial da Leemia com o título “Marque seu horário em três toques”.",
+            src: "/projetos/sistema-de-agendamentos/landing.webp",
+            alt: "Página inicial do sistema com o título “Marque seu horário em três toques”.",
             caption: "A página inicial apresenta a reserva, que leva menos de um minuto.",
             wide: true,
             width: 2160,
             height: 1350,
           },
           {
-            src: "/projetos/leemia/reserva.webp",
+            src: "/projetos/sistema-de-agendamentos/reserva.webp",
             alt: "Terceiro passo da reserva: calendário, grade de horários livres e resumo com o total.",
             caption: "Reserva em três passos: serviço, profissional e horário. A grade mostra só o que está livre.",
             width: 2160,
             height: 1350,
           },
           {
-            src: "/projetos/leemia/admin-visao-geral.webp",
+            src: "/projetos/sistema-de-agendamentos/admin-visao-geral.webp",
             alt: "Visão geral do estúdio com agendamentos, receita, ticket médio, ocupação e últimos agendamentos.",
             caption: "Visão geral do estúdio: receita realizada e prevista, ticket médio e ocupação, por período, profissional e serviço.",
             width: 2160,
             height: 1350,
           },
           {
-            src: "/projetos/leemia/admin-expediente.webp",
+            src: "/projetos/sistema-de-agendamentos/admin-expediente.webp",
             alt: "Horários de funcionamento por dia da semana, com o domingo fechado.",
             caption: "Horários e feriados: expediente da semana, dias especiais e agenda de cada profissional.",
             width: 2160,
             height: 1350,
           },
           {
-            src: "/projetos/leemia/profissional-painel.webp",
+            src: "/projetos/sistema-de-agendamentos/profissional-painel.webp",
             alt: "Painel da profissional Marina Costa com receita, ocupação e próximos atendimentos.",
             caption: "Painel do profissional: receita, ocupação e próximos atendimentos de quem está logado.",
             width: 2160,
             height: 1350,
           },
           {
-            src: "/projetos/leemia/admin-servicos.webp",
+            src: "/projetos/sistema-de-agendamentos/admin-servicos.webp",
             alt: "Catálogo de serviços com duração e preço.",
             caption: "Catálogo: preço e duração de cada serviço. Serviço com histórico é desativado, nunca apagado.",
             width: 2160,
             height: 1350,
           },
           {
-            src: "/projetos/leemia/admin-equipe.webp",
+            src: "/projetos/sistema-de-agendamentos/admin-equipe.webp",
             alt: "Equipe com os serviços de cada profissional e o estado do acesso ao painel.",
             caption: "Equipe: os serviços de cada profissional e o acesso ao painel, liberado quando o convite é aceito.",
             width: 2160,
@@ -338,6 +373,265 @@ const pt: Dictionary = {
         codeHref: "https://github.com/Tiodevs/sistema-de-agendamentos",
       },
     },
+    {
+      slug: "ia-chat",
+      title: "IA-chat",
+      category: "Projeto open source",
+      year: "2026",
+      summary:
+        "Chat com IA que atende visitantes de hospital. Responde só com o que foi publicado, mostra a fonte de cada resposta, recusa orientação médica e protege os dados de quem conversa.",
+      stack: ["Python", "FastAPI", "LangGraph", "Gemini", "pgvector", "React"],
+      href: "https://atrium-gold.vercel.app",
+      metric: { value: "500+", label: "testes automatizados" },
+      // A live chat with the question's trace beside it. The chat lines come
+      // from the product's real screens.
+      chat: {
+        ariaLabel:
+          "Animação do IA-chat em ação: o visitante pergunta onde estacionar e recebe a resposta com a fonte, enquanto o rastro acende cada etapa. Depois, uma pergunta sobre remédio é recusada antes do gerador, e a mensagem não é guardada.",
+        brand: "Atrium",
+        mark: "/projetos/ia-chat/marca.svg",
+        title: "Conversa",
+        greeting: "Como podemos ajudar no Harborlight?",
+        placeholder: "Pergunte sobre visita, caminhos ou horários",
+        send: "Enviar",
+        disclaimer: "Não envie sintomas nem nomes de medicamentos. O Atrium não dá orientação médica.",
+        traceTitle: "Rastro da pergunta",
+        skipped: "pulado",
+        steps: [
+          { label: "Reescrever e classificar", answered: "informação pública", refused: "orientação médica" },
+          { label: "Portão", answered: "segue", refused: "recusa fixa" },
+          { label: "Busca híbrida", answered: "vetor + texto completo" },
+          { label: "Piso de similaridade", answered: "≥ 0,50" },
+          { label: "Geração em fluxo", answered: "SSE, token a token" },
+          { label: "Conferência", answered: "citações conferem" },
+        ],
+        answered: {
+          question: "Onde posso estacionar?",
+          answer: [
+            { text: "Você pode estacionar na Garagem da Harbor Street.", cite: "2" },
+            {
+              text: "Há também serviço de manobrista na entrada principal, disponível das 06:00 às 20:00.",
+              cite: "2",
+            },
+          ],
+          source: "Fonte 2 · Estacionamento",
+          outcome: { code: "answered", label: "resposta com fonte" },
+        },
+        refused: {
+          question: "Estou com febre, que remédio tomo?",
+          storedAs: "Para proteger sua privacidade, não guardamos esta mensagem.",
+          title: "Orientação médica recusada",
+          body: "Não posso ajudar com sintomas, diagnóstico ou medicamento. Se for uma emergência, ligue para o número local de emergência.",
+          extra: "A entrada de emergência do Harborlight fica no lado oeste e funciona 24 horas.",
+          outcome: { code: "refused", label: "recusa fixa, antes do gerador" },
+          notes: ["Mensagem não guardada", "Fora do LangSmith"],
+        },
+      },
+      caseStudy: {
+        role: "Autor e AI Engineer",
+        context: "Projeto pessoal · open source, no ar",
+        overview:
+          "Um chat com IA que responde visitantes de hospital: horário de visita, onde estacionar, por qual entrada chegar. Atende em português, a qualquer hora, só com o que o hospital publicou e mostrando de onde veio cada resposta. O hospital é fictício; a engenharia ao redor dele é de produção, no ar e com código aberto.",
+        challenge:
+          "Em saúde, uma IA que inventa resposta é um risco. O desafio era pôr a IA na porta de entrada do atendimento sem que ela inventasse informação, desse orientação médica ou guardasse o que não devia.",
+        solution:
+          "Construí, da especificação à produção, um assistente em que a IA nunca trabalha solta. Cada pergunta passa por um portão antes do modelo, a busca acontece só nos documentos publicados e cada resposta é conferida antes de chegar à pessoa. Em volta, cadastro por conversa, painel para a equipe e LGPD desde o desenho.",
+        audiences: [
+          {
+            eyebrow: "Para o visitante",
+            title: "Pergunta e recebe na hora",
+            body: "Horário de visita, estacionamento, por qual entrada chegar: o assistente responde em tempo real e mostra de onde tirou cada resposta. Se não sabe, diz que não encontrou e indica o telefone da central.",
+            points: [
+              "Fonte em cada resposta",
+              "Aviso permanente de que é uma IA",
+              "Feito também para o celular",
+            ],
+            shot: {
+              src: "/projetos/ia-chat/conversa.webp",
+              alt: "Conversa em que o visitante pergunta onde estacionar e recebe a resposta com a fonte citada.",
+              caption: "",
+              width: 2160,
+              height: 1350,
+            },
+          },
+          {
+            eyebrow: "Para quem se cadastra",
+            title: "Conta criada numa conversa",
+            body: "Uma conversa guiada coleta os dados, e a pessoa vê e corrige tudo antes de confirmar. Quem prefere usa o formulário, com os mesmos dados e consentimentos.",
+            points: [
+              "Consentimento por finalidade",
+              "Senha nunca passa pela IA",
+              "Exporta ou apaga os próprios dados",
+            ],
+            shot: {
+              src: "/projetos/ia-chat/cadastro-ia.webp",
+              alt: "Cadastro por conversa: o assistente pede o nome e o e-mail, um passo por vez.",
+              caption: "",
+              width: 2160,
+              height: 1350,
+            },
+          },
+          {
+            eyebrow: "Para a equipe do hospital",
+            title: "Acompanha tudo num painel",
+            body: "Quantas perguntas foram respondidas, recusadas ou ficaram sem resposta, o feedback dos visitantes e o funil de cadastro. Para melhorar a qualidade, a equipe revisa conversas pseudonimizadas, só de quem consentiu.",
+            points: [
+              "Gestão dos documentos publicados",
+              "Inspetor de qualidade",
+              "Pedidos de privacidade dos titulares",
+            ],
+            shot: {
+              src: "/projetos/ia-chat/admin-visao-geral.webp",
+              alt: "Painel com perguntas, taxa de respostas, abstenções, feedback e funil de cadastro.",
+              caption: "",
+              width: 2160,
+              height: 1350,
+            },
+          },
+        ],
+        highlights: [
+          {
+            title: "Responde só com o que foi publicado",
+            body: "Cada resposta mostra a fonte. Se a informação não existe, o assistente diz que não encontrou e indica o telefone da central, em vez de inventar.",
+          },
+          {
+            title: "Não dá orientação médica",
+            body: "Perguntas sobre sintoma, diagnóstico ou remédio recebem uma recusa clara, com o caminho para a emergência, e a mensagem não é guardada.",
+          },
+          {
+            title: "Sempre deixa claro que é uma IA",
+            body: "O aviso fica na tela o tempo todo, e nenhuma decisão importante fica nas mãos do modelo.",
+          },
+          {
+            title: "Privacidade desde o desenho",
+            body: "LGPD no código: coleta mínima, consentimento por finalidade, retenção com prazo e exportação ou exclusão dos dados pela própria pessoa.",
+          },
+        ],
+        gallery: [
+          {
+            src: "/projetos/ia-chat/conversa.webp",
+            alt: "Conversa no IA-chat: o visitante pergunta onde estacionar e recebe a resposta com a fonte citada.",
+            caption: "A resposta chega em tempo real, com o número da fonte ao lado de cada trecho e o documento a um clique.",
+            wide: true,
+            width: 2160,
+            height: 1350,
+          },
+          {
+            src: "/projetos/ia-chat/home.webp",
+            alt: "Página inicial com o campo de pergunta e atalhos para as dúvidas mais comuns.",
+            caption: "Início: atalhos para as dúvidas mais comuns e o aviso permanente de que quem responde é uma IA.",
+            width: 2160,
+            height: 1350,
+          },
+          {
+            src: "/projetos/ia-chat/guardrail.webp",
+            alt: "Pergunta sobre sintoma recusada, com o caminho para a emergência.",
+            caption: "Limite ético: pergunta sobre sintoma recebe recusa, a mensagem não é guardada e a pessoa recebe o caminho da emergência.",
+            width: 2160,
+            height: 1350,
+          },
+          {
+            src: "/projetos/ia-chat/cadastro-ia.webp",
+            alt: "Cadastro por conversa com a IA.",
+            caption: "Cadastro com IA: uma conversa guiada coleta os dados, e a pessoa confere tudo antes de confirmar.",
+            width: 2160,
+            height: 1350,
+          },
+          {
+            src: "/projetos/ia-chat/cadastro-formulario.webp",
+            alt: "Cadastro por formulário com tipo de visitante, motivo da visita e senha.",
+            caption: "Formulário sempre disponível: os mesmos dados e consentimentos, para quem prefere não conversar.",
+            width: 2160,
+            height: 1350,
+          },
+          {
+            src: "/projetos/ia-chat/admin-visao-geral.webp",
+            alt: "Visão geral do admin com perguntas, taxa de respostas, abstenções e feedback.",
+            caption: "Visão geral: volume de perguntas, taxa de respostas, abstenções, feedback e funil de cadastro.",
+            width: 2160,
+            height: 1350,
+          },
+          {
+            src: "/projetos/ia-chat/admin-qualidade.webp",
+            alt: "Inspetor de qualidade com conversas pseudonimizadas e o desfecho de cada uma.",
+            caption: "Qualidade: conversas pseudonimizadas, filtradas por desfecho e feedback, só de quem consentiu.",
+            width: 2160,
+            height: 1350,
+          },
+        ],
+        architecture: {
+          flow: [
+            { name: "Navegador", detail: "Visitante e equipe" },
+            { name: "App em React", detail: "Vercel · encaminha /backend" },
+            { name: "API em FastAPI", detail: "Railway · LangChain e LangGraph" },
+            { name: "PostgreSQL + pgvector", detail: "Railway · busca híbrida" },
+          ],
+          services: [
+            { name: "Google Gemini", detail: "Respostas e embeddings" },
+            { name: "LangSmith", detail: "Rastros de IA mascarados" },
+            { name: "Prometheus e Grafana", detail: "Métricas, painéis e alertas" },
+          ],
+          note: "O navegador fala só com a Vercel, que encaminha /backend para a API: o cookie de sessão fica primário e não precisa de CORS. A API recusa chamadas sem o segredo da borda, e as chaves do Gemini e do LangSmith só existem nela. Por dentro, MVC com as camadas que um sistema de IA precisa: controllers, services, workflows, portas e adaptadores, e um domínio em Python puro.",
+        },
+        engineering: [
+          {
+            title: "Um portão antes do modelo",
+            body: "Cada pergunta é reescrita e classificada antes de tudo, e o contexto entra rotulado como não confiável, contra instruções escondidas. Orientação médica recebe recusa fixa, tema fora do escopo recebe resposta de escopo, e só informação pública segue para a busca.",
+          },
+          {
+            title: "Busca híbrida e resposta conferida",
+            body: "A busca junta vetores e texto completo no PostgreSQL, com piso de similaridade de 0,50. A resposta sai em tempo real por SSE, e citações e telefones são conferidos contra os documentos; se não conferem, sai uma resposta segura.",
+          },
+          {
+            title: "Cadastro com LangGraph, decisão no código",
+            body: "O modelo conduz a conversa, mas uma máquina de estados em Python puro decide cada passo. A senha vai para um endpoint próprio, guardada com argon2id, e nunca passa pela IA.",
+          },
+          {
+            title: "Custo e disponibilidade sob controle",
+            body: "Teto diário de tokens, circuit breaker que abre por 60 s depois de 5 falhas seguidas e histórico limitado às últimas 6 trocas. Se algo estoura, a resposta sai degradada, com o telefone da central.",
+          },
+          {
+            title: "Observabilidade de ponta a ponta",
+            body: "Logs em JSON, rastros OpenTelemetry, métricas no Prometheus com 4 painéis e 8 alertas no Grafana, e rastros de IA no LangSmith com política por passo. Um request_id liga os quatro.",
+          },
+          {
+            title: "Testes, avaliações e entrega",
+            body: "372 testes na API e 129 no frontend, sem chamar o modelo de verdade. CI com quatro jobs, avaliação do LLM em toda pull request que muda prompts e produção só depois de aprovação humana e teste de fumaça.",
+          },
+        ],
+        stackTable: [
+          {
+            layer: "Frontend",
+            tech: "React 19, TypeScript, Vite, Tailwind CSS 4, shadcn/ui, TanStack Query e GSAP",
+          },
+          {
+            layer: "API",
+            tech: "Python 3.12, FastAPI, Pydantic, SQLAlchemy 2 assíncrono e Alembic",
+          },
+          {
+            layer: "IA",
+            tech: "LangChain nas perguntas, LangGraph no cadastro e Gemini 2.5 Flash atrás de portas próprias",
+          },
+          {
+            layer: "Dados",
+            tech: "PostgreSQL 18 com pgvector e busca híbrida vetorial e por texto completo",
+          },
+          {
+            layer: "Testes",
+            tech: "Pytest, Vitest, Testing Library, Playwright, axe e Storybook",
+          },
+          {
+            layer: "Observabilidade",
+            tech: "structlog, OpenTelemetry, Prometheus, Grafana e LangSmith",
+          },
+          {
+            layer: "Entrega",
+            tech: "GitHub Actions, Vercel e Railway, com aprovação humana para produção",
+          },
+        ],
+        codeHref: "https://github.com/Tiodevs/AI-Chat",
+      },
+    },
   ],
   cv: {
     href: "/cv-pt.pdf",
@@ -354,6 +648,7 @@ const pt: Dictionary = {
         role: "AI Engineer Sênior",
         description:
           "Responsável pela plataforma de LLM própria da operadora, base dos projetos de IA: vLLM em GPU na AWS, gateway, observabilidade e fallback entre modelos. Também apoio os times na integração da IA aos sistemas.",
+        logo: "/logos/unimed.png",
       },
       {
         index: "02",
@@ -362,6 +657,7 @@ const pt: Dictionary = {
         role: "AI / GenAI e Software Engineer",
         description:
           "RAG sobre materiais de suporte e orientação operacional, agentes com tools e o App Super, PWA para mais de 10 mil pessoas. A sistematização substituiu dezenas de planilhas: cerca de 20% a mais de produtividade dos coordenadores e 10% a menos no tempo de alocação.",
+        logo: "/logos/grupo-boticario.png",
       },
       {
         index: "03",
@@ -370,6 +666,7 @@ const pt: Dictionary = {
         role: "Full-Stack e Tech Lead",
         description:
           "Sistema interno de ponto e folha para PJ, do zero, com regras de horas, aprovações e remuneração. Tech lead de arquitetura, demandas e 1:1. O fechamento da folha caiu cerca de 70% no tempo operacional. No entorno, integrações MarTech e pipelines para Power BI.",
+        logo: "/logos/assumtek.svg",
       },
       {
         index: "04",
@@ -377,7 +674,7 @@ const pt: Dictionary = {
         period: "Jan 2021 — Jan 2025",
         role: "Fundador e Full-Stack",
         description:
-          "Mais de 40 projetos B2B, do Figma à produção, e o SaaS multi-tenant de barbearias: agenda, folha, assinaturas e lembretes. Passou de 7 mil usuários. Clientes economizaram cerca de 17% a 20% do tempo operacional diário.",
+          "Mais de 40 projetos B2B, do Figma à produção, e o sistema de agendamentos para barbearias e salões, multi-tenant: agenda, folha, assinaturas e lembretes. Passou de 7 mil usuários. Clientes economizaram cerca de 17% a 20% do tempo operacional diário.",
       },
     ],
   },
@@ -421,6 +718,22 @@ const pt: Dictionary = {
         logo: "/logos/aws.svg",
       },
     ],
+  },
+  skills: {
+    eyebrow: "Competências",
+    title: "Com o que eu construo.",
+    groups: {
+      languages: "Linguagens",
+      ai: "IA e LLMs",
+      observability: "Observabilidade",
+      frontend: "Frontend e mobile",
+      backend: "Backend",
+      data: "Dados e BI",
+      cloud: "Cloud e entrega",
+      automation: "Automação e integrações",
+      testing: "Testes",
+      tools: "Ferramentas",
+    },
   },
   contact: {
     eyebrow: "Currículo",

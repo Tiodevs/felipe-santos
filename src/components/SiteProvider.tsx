@@ -53,7 +53,8 @@ function readTheme(): Theme {
 function applyTheme(theme: Theme) {
   document.documentElement.setAttribute("data-theme", theme);
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute("content", theme === "dark" ? "#05070a" : "#f2f5f6");
+  // Matches --color-ink in globals.css, so the browser bar blends with the page.
+  if (meta) meta.setAttribute("content", theme === "dark" ? "#0f1419" : "#ecf1f2");
 }
 
 export function SiteProvider({

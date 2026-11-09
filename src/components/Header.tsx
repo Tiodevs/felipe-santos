@@ -2,7 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 import { EASE, ScrollTrigger, gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
 import { useSite } from "@/components/SiteProvider";
 import { SOCIALS, CONTACT } from "@/data/site";
@@ -257,8 +263,17 @@ export function Header() {
           data-menu-panel
           className="absolute inset-0 flex flex-col bg-ink-soft pt-[var(--header-h)]"
         >
-          <nav className="shell flex min-h-0 flex-1 flex-col justify-start overflow-y-auto py-4 md:justify-center md:py-6">
-            <ul>
+          {/* The nav is a size container: each label is sized from the space the
+              nav really has, so the longest one stays on one line and every
+              item fits between the header and the contact row, however many
+              items there are. */}
+          <nav
+            className="shell flex min-h-0 flex-1 flex-col overflow-y-auto py-4 [container-type:size] md:py-6"
+            style={{ "--menu-items": t.links.length } as CSSProperties}
+          >
+            {/* Auto margins center the list but, unlike justify-center, never
+                push its first item out of reach when it has to scroll. */}
+            <ul className="md:my-auto">
               {t.links.map((link, i) => (
                 <li key={link.href}>
                   <Link
@@ -273,9 +288,9 @@ export function Header() {
                       toggle(false);
                     }}
                     tabIndex={open ? 0 : -1}
-                    className="group flex items-baseline justify-between gap-6 overflow-hidden py-1 md:py-[clamp(0.35rem,1.2vh,0.85rem)]"
+                    className="group flex items-baseline justify-between gap-6 overflow-hidden py-1 md:py-[clamp(0.25rem,1.2cqh,0.85rem)]"
                   >
-                    <span className="display inline-flex items-baseline gap-4 pt-[0.06em] pb-[0.14em] text-[clamp(1.7rem,8.2vw,6.25rem)] leading-[1.08] text-bone transition-colors duration-500 group-hover:text-cyan md:gap-8 md:text-[clamp(2rem,min(8vw,12vh),6.25rem)] md:leading-[0.92]">
+                    <span className="display inline-flex items-baseline gap-4 pt-[0.06em] pb-[0.14em] text-[clamp(1.375rem,min(8cqw,calc(65cqh/var(--menu-items))),6.25rem)] leading-[1.08] text-bone transition-colors duration-500 group-hover:text-cyan md:gap-8 md:text-[clamp(2rem,min(8cqw,calc(72cqh/var(--menu-items))),6.25rem)] md:leading-[0.92]">
                       <em className="font-mono text-[0.6rem] font-normal tracking-[0.2em] text-bone-dim not-italic md:text-xs">
                         0{i + 1}
                       </em>
@@ -301,7 +316,8 @@ export function Header() {
             </a>
           </div>
 
-          <div className="shell hidden shrink-0 gap-6 border-t border-ink-line py-5 sm:grid sm:grid-cols-3 sm:gap-8 sm:py-6">
+          {/* On short screens (a phone on its side) the links need this room. */}
+          <div className="shell hidden shrink-0 gap-6 border-t border-ink-line py-5 sm:grid-cols-3 sm:gap-8 sm:py-6 sm:[@media(min-height:32rem)]:grid">
             <div data-menu-aside className="space-y-2">
               <p className="eyebrow">{t.contactLabel}</p>
               <a
