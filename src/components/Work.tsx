@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { EASE, gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
-import { ProjectReel } from "@/components/ProjectReel";
+import { BookingReel } from "@/components/BookingReel";
+import { ChatReel } from "@/components/ChatReel";
 import { RevealText } from "@/components/Reveal";
 import { useSite } from "@/components/SiteProvider";
 
@@ -82,11 +83,13 @@ export function Work() {
         </RevealText>
       </div>
 
+      {/* Two or more projects sit side by side from md up, one under the
+          other on phones. Cards share a row height, so the buttons line up. */}
       <div
         className={
           featured
             ? "mt-14 md:mt-24"
-            : "mt-14 grid gap-x-8 gap-y-16 md:mt-24 md:grid-cols-2 md:gap-y-28"
+            : "mt-14 grid gap-x-8 gap-y-16 md:mt-24 md:grid-cols-2 md:gap-y-20"
         }
       >
         {projects.map((project, i) => (
@@ -94,27 +97,24 @@ export function Work() {
             key={project.slug}
             data-work-card
             data-framed={project.framed ? "true" : undefined}
-            data-reel={project.reel ? "true" : undefined}
-            className={`group ${!featured && i % 2 === 1 ? "md:mt-24" : ""}`}
+            data-reel={project.booking || project.chat ? "true" : undefined}
+            className={featured ? "group" : "group flex flex-col"}
           >
             <Link
               href={`/${locale}/projetos/${project.slug}`}
               data-work-frame
               className={`relative block overflow-hidden rounded-sm bg-ink-soft ${
-                featured ? "aspect-[16/10]" : "aspect-4/3"
+                featured || project.booking || project.chat ? "aspect-[16/10]" : "aspect-4/3"
               }`}
             >
               <div data-work-media className="absolute inset-0">
-                {project.reel ? (
+                {project.chat || project.booking ? (
                   <div className="absolute inset-0 transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.015]">
-                    <ProjectReel
-                      reel={project.reel}
-                      sizes={
-                        featured
-                          ? "(min-width: 1536px) 1150px, (min-width: 768px) 72vw, 90vw"
-                          : "(min-width: 768px) 36vw, 70vw"
-                      }
-                    />
+                    {project.chat ? (
+                      <ChatReel chat={project.chat} />
+                    ) : project.booking ? (
+                      <BookingReel booking={project.booking} />
+                    ) : null}
                   </div>
                 ) : project.image ? (
                   <Image
@@ -145,7 +145,9 @@ export function Work() {
 
             <div
               data-work-meta
-              className={featured ? "mt-8 grid gap-x-8 md:grid-cols-12" : "mt-6"}
+              className={
+                featured ? "mt-8 grid gap-x-8 md:grid-cols-12" : "mt-6 flex flex-1 flex-col"
+              }
             >
               <div className="hairline flex items-baseline justify-between gap-4 pt-4 md:col-span-12">
                 <span className="font-mono text-[0.65rem] tracking-[0.2em] text-bone-dim">
@@ -166,7 +168,7 @@ export function Work() {
                 {project.title}
               </h3>
 
-              <div className={featured ? "md:col-span-7 md:mt-6" : undefined}>
+              <div className={featured ? "md:col-span-7 md:mt-6" : "flex flex-1 flex-col"}>
                 <p
                   className={`mt-3 max-w-prose leading-relaxed text-bone-dim ${
                     featured ? "text-base md:mt-0 md:text-lg" : "text-sm"
@@ -186,13 +188,16 @@ export function Work() {
                   ))}
                 </ul>
 
-                <Link
-                  href={`/${locale}/projetos/${project.slug}`}
-                  className="group/btn relative mt-6 inline-flex overflow-hidden rounded-full bg-cyan px-5 py-2.5 text-xs font-medium tracking-[0.14em] text-ink-deep uppercase"
-                >
-                  <span className="relative z-10">{t.openProject}</span>
-                  <span className="absolute inset-0 origin-bottom scale-y-0 bg-paper transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover/btn:scale-y-100" />
-                </Link>
+                {/* mt-auto keeps the button at the foot of the card. */}
+                <div className={featured ? "mt-6" : "mt-auto pt-6"}>
+                  <Link
+                    href={`/${locale}/projetos/${project.slug}`}
+                    className="group/btn relative inline-flex overflow-hidden rounded-full bg-cyan px-5 py-2.5 text-xs font-medium tracking-[0.14em] text-ink-deep uppercase"
+                  >
+                    <span className="relative z-10">{t.openProject}</span>
+                    <span className="absolute inset-0 origin-bottom scale-y-0 bg-paper transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover/btn:scale-y-100" />
+                  </Link>
+                </div>
               </div>
             </div>
           </article>

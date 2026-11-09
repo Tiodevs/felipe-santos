@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  /* Light surfaces */
-  --color-ink: #f2f5f6;
-  --color-ink-soft: #e7ecee;
+  /* Light surfaces: an ice white, cool rather than gray or warm, softer on
+     the eyes than pure white. */
+  --color-ink: #ecf1f2;
+  --color-ink-soft: #e1e8ea;
   --color-ink-line: #c9d3d8;
-  /* Primary text */
-  --color-bone: #0b1216;
-  --color-bone-dim: #5a6b73;
+  /* Primary text: a deep slate instead of pure black, about 13:1 on the
+     background, so long reads tire less. */
+  --color-bone: #1d272d;
+  --color-bone-dim: #56666e;
   /* Brand */
   --color-cyan: #0f9bb8;
   --color-cyan-light: #34c3dd;
@@ -15,7 +17,7 @@
   /* Always-dark ink for text on cyan CTAs */
   --color-ink-deep: #05070a;
   /* Light fill used on cyan button hover */
-  --color-paper: #ffffff;
+  --color-paper: #f7fafa;
 
   --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-serif: ui-serif, Georgia, serif;
@@ -31,18 +33,20 @@
   color-scheme: light;
 }
 
+/* Dark: an ink black with a hint of blue instead of pure black, and a soft
+   white for text, about 14:1 instead of 18:1. */
 html[data-theme="dark"] {
   color-scheme: dark;
-  --color-ink: #05070a;
-  --color-ink-soft: #0a0e13;
-  --color-ink-line: #171d24;
-  --color-bone: #f2f5f6;
+  --color-ink: #0f1419;
+  --color-ink-soft: #151b21;
+  --color-ink-line: #232b33;
+  --color-bone: #dde3e6;
   --color-bone-dim: #9aa7ae;
   --color-cyan: #34c3dd;
   --color-cyan-light: #67d2e5;
   --color-cyan-wash: #e5f7fb;
   --color-ink-deep: #05070a;
-  --color-paper: #f2f5f6;
+  --color-paper: #e4e9eb;
 }
 
 html[data-theme="dark"] [data-theme-icon="sun"],
@@ -211,5 +215,130 @@ header.fixed,
   .hero-name-in,
   .hero-name-track {
     animation: none;
+  }
+}
+
+/* Service stack: one isometric plate per stage. The active plate fills with
+   cyan, lifts and draws its art at full contrast; the others stay faint. */
+.svc-layer {
+  cursor: pointer;
+  transition: transform 0.8s var(--ease-out-expo);
+}
+
+.svc-layer[data-active="true"] {
+  transform: translateY(-10px);
+}
+
+.svc-plate,
+.svc-line,
+.svc-grid,
+.svc-node,
+.svc-core,
+.svc-dot,
+.svc-bar,
+.svc-sweep {
+  transition:
+    fill 0.6s var(--ease-out-expo),
+    stroke 0.6s var(--ease-out-expo);
+}
+
+.svc-plate {
+  fill: color-mix(in oklab, var(--color-cyan) 6%, transparent);
+  stroke: color-mix(in oklab, var(--color-bone) 22%, transparent);
+  stroke-width: 1;
+}
+
+.svc-line,
+.svc-grid {
+  fill: none;
+  stroke: color-mix(in oklab, var(--color-bone) 18%, transparent);
+  stroke-width: 1;
+}
+
+.svc-strong {
+  stroke-width: 1.5;
+}
+
+.svc-grid {
+  stroke-dasharray: 2 4;
+}
+
+.svc-dash {
+  stroke-dasharray: 4 4;
+}
+
+.svc-node {
+  fill: var(--color-ink);
+  stroke: color-mix(in oklab, var(--color-bone) 22%, transparent);
+  stroke-width: 1;
+}
+
+.svc-core {
+  fill: color-mix(in oklab, var(--color-cyan) 22%, transparent);
+}
+
+.svc-dot {
+  fill: color-mix(in oklab, var(--color-bone) 22%, transparent);
+}
+
+.svc-packet {
+  fill: var(--color-bone);
+  opacity: 0;
+}
+
+.svc-bar {
+  stroke: color-mix(in oklab, var(--color-bone) 18%, transparent);
+  stroke-width: 7;
+}
+
+.svc-sweep {
+  fill: transparent;
+}
+
+.svc-layer[data-active="true"] .svc-plate {
+  fill: color-mix(in oklab, var(--color-cyan-light) 42%, transparent);
+  stroke: var(--color-bone);
+}
+
+.svc-layer[data-active="true"] :is(.svc-line, .svc-node) {
+  stroke: var(--color-bone);
+}
+
+.svc-layer[data-active="true"] .svc-grid {
+  stroke: color-mix(in oklab, var(--color-bone) 32%, transparent);
+}
+
+.svc-layer[data-active="true"] .svc-core {
+  fill: var(--color-bone);
+}
+
+.svc-layer[data-active="true"] .svc-dot {
+  fill: var(--color-bone);
+}
+
+.svc-layer[data-active="true"] .svc-bar {
+  stroke: var(--color-bone);
+}
+
+.svc-layer[data-active="true"] .svc-sweep {
+  fill: color-mix(in oklab, var(--color-bone) 14%, transparent);
+}
+
+/* A packet paused halfway along an edge should not linger on a faint plate. */
+.svc-layer:not([data-active="true"]) .svc-packet {
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-layer,
+  .svc-plate,
+  .svc-line,
+  .svc-grid,
+  .svc-node,
+  .svc-core,
+  .svc-dot,
+  .svc-bar,
+  .svc-sweep {
+    transition: none;
   }
 }

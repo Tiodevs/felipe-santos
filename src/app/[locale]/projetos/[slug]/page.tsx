@@ -4,7 +4,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { ProjectGallery } from "@/components/ProjectGallery";
-import { ProjectReel } from "@/components/ProjectReel";
 import { RevealText } from "@/components/Reveal";
 import { SITE } from "@/data/site";
 import { isLocale, locales, type Locale } from "@/i18n/config";
@@ -144,13 +143,14 @@ export default async function ProjectPage({
           ← {t.back}
         </Link>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-12 md:items-end">
-          <p className="eyebrow md:col-span-4">
+        {/* The title opens on the left, with the category just above it. */}
+        <div className="mt-10">
+          <p className="eyebrow">
             {project.category} · {project.year}
           </p>
           <RevealText
             as="h1"
-            className="display display-lines text-[clamp(2.6rem,8vw,7rem)] md:col-span-8"
+            className="display display-lines mt-5 text-[clamp(2.6rem,8vw,7rem)]"
           >
             {project.title}
           </RevealText>
@@ -163,20 +163,8 @@ export default async function ProjectPage({
         <div className="mt-8">{links}</div>
       </header>
 
-      {project.reel ? (
-        <div className="shell mt-12 md:mt-16">
-          <div className="relative aspect-[16/10] overflow-hidden rounded-sm ring-1 ring-ink-line">
-            <ProjectReel
-              reel={project.reel}
-              preload
-              sizes="(min-width: 1536px) 1170px, 76vw"
-            />
-          </div>
-        </div>
-      ) : null}
-
       <div className="shell">
-        <dl className="mt-10 grid gap-6 border-y border-ink-line py-6 sm:grid-cols-2 lg:grid-cols-4">
+        <dl className="mt-12 grid gap-6 border-y border-ink-line py-6 sm:grid-cols-2 md:mt-16 lg:grid-cols-4">
           <div>
             <dt className="eyebrow">{t.role}</dt>
             <dd className="mt-2 text-sm text-bone">
@@ -218,27 +206,6 @@ export default async function ProjectPage({
                 {study.solution}
               </p>
             </section>
-
-            {study.numbers?.length ? (
-              <section className="mt-20 md:mt-28">
-                <SectionLabel>{t.numbers}</SectionLabel>
-                <dl className="mt-8 grid grid-cols-2 md:grid-cols-4">
-                  {study.numbers.map((item) => (
-                    <div
-                      key={item.label}
-                      className="border-t border-ink-line py-6 pr-4 even:pl-5 max-md:odd:border-r md:pr-8 md:even:pl-0"
-                    >
-                      <dt className="display text-[clamp(2.2rem,6vw,4rem)] text-cyan">
-                        {item.value}
-                      </dt>
-                      <dd className="mt-3 max-w-[22ch] text-sm leading-snug text-bone-dim">
-                        {item.label}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </section>
-            ) : null}
 
             {study.audiences?.length ? (
               <section className="mt-20 md:mt-28">
