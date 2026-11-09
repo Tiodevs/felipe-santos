@@ -229,6 +229,12 @@ header.fixed,
   transform: translateY(-10px);
 }
 
+/* A still plate (phones): lit, but it neither lifts nor takes clicks. */
+.svc-layer[data-still][data-active="true"] {
+  cursor: default;
+  transform: none;
+}
+
 .svc-plate,
 .svc-line,
 .svc-grid,
