@@ -15,4 +15,4 @@ npm run dev
 
 Abre em [http://localhost:3000](http://localhost:3000). O português fica em `/pt` e o inglês em `/en`.
 
-O botão baixa o currículo: `public/cv-pt.pdf` na página em português e `public/cv-en.pdf` na página em inglês.
+O botão baixa o currículo: `public/cv-pt.pdf` na página em português e `public/cv-en.pdf` na página em inglês. Os dois PDFs vêm do Felipe-OS: `curriculos em ingles/BASE-pt.md` gera o português e `curriculos em ingles/BASE.md` gera o inglês.
