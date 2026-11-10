@@ -195,6 +195,8 @@ export type Dictionary = {
     title: string;
     description: string;
     keywords: string[];
+    /** Alt text for the link-preview cover. */
+    imageAlt: string;
   };
   nav: {
     links: NavLink[];

@@ -16,6 +16,7 @@ const en: Dictionary = {
       "Brazil",
       "Felipe P. dos Santos",
     ],
+    imageAlt: "Felipe Santos, Senior AI Engineer, smiling with his arms crossed.",
   },
   nav: {
     links: [

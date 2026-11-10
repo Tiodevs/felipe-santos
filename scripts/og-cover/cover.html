@@ -1,0 +1,107 @@
+<!doctype html>
+<!--
+  Link-preview cover (og:image) for the home page, in the hero's look: the
+  cut-out portrait with the name running across it in difference blend.
+  render.mjs turns it into public/og/cover-pt.jpg and cover-en.jpg. To preview,
+  open this file in a browser with ?lang=pt or ?lang=en (it is 1200×630).
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Cover</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&family=Space+Grotesk:wght@400;500&display=block" rel="stylesheet">
+<style>
+  /* Dark theme tokens from src/app/globals.css: the dark card stands out
+     inside WhatsApp's white bubbles, where the light one washes out. */
+  :root {
+    --ink: #0f1419;
+    --bone: #dde3e6;
+    --dim: #9aa7ae;
+    --cyan: #34c3dd;
+    --pad: 64px;
+  }
+
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: var(--ink); }
+  body { font-family: "Space Grotesk", sans-serif; -webkit-font-smoothing: antialiased; }
+  p, h1 { margin: 0; }
+
+  .stage {
+    position: relative; isolation: isolate; overflow: hidden;
+    width: 1200px; height: 630px; background: var(--ink); color: var(--bone);
+  }
+
+  .portrait {
+    position: absolute; left: 50%; bottom: -24px;
+    height: 600px; transform: translateX(-50%);
+  }
+
+  /* Same treatment as the hero's name band: white in difference blend, so it
+     stays light on the ink and flips over the sweater. */
+  .name {
+    position: absolute; left: 0; right: 0; top: 58.5%;
+    transform: translateY(-50%); text-align: center; white-space: nowrap;
+    color: #fff; mix-blend-mode: difference;
+    font-size: 176px; font-weight: 500; line-height: 0.9; letter-spacing: -0.045em;
+  }
+
+  .mono { position: absolute; font-family: "JetBrains Mono", monospace; font-size: 20px; }
+
+  .status {
+    left: var(--pad); top: 58px; display: flex; align-items: center; gap: 14px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .dot { position: relative; width: 12px; height: 12px; border-radius: 50%; background: var(--cyan); }
+  .dot::after {
+    content: ""; position: absolute; inset: -7px; border-radius: 50%;
+    background: var(--cyan); opacity: 0.2;
+  }
+
+  .url { right: var(--pad); top: 60px; letter-spacing: 0.1em; color: var(--dim); }
+
+  .lead {
+    position: absolute; left: var(--pad); bottom: 56px; width: 270px;
+    font-size: 24px; line-height: 1.3; color: var(--dim);
+  }
+  .lead b { font-weight: 500; color: var(--bone); }
+
+  .role {
+    position: absolute; right: var(--pad); bottom: 52px; text-align: right;
+    font-size: 50px; font-weight: 500; line-height: 0.92;
+    letter-spacing: -0.03em; text-transform: uppercase;
+  }
+  .role span { display: block; }
+  .role .accent { color: var(--cyan); }
+</style>
+</head>
+<body>
+<div class="stage">
+  <img class="portrait" src="../../public/felipe-hero-bw.webp" alt="">
+  <div class="name">Felipe Santos</div>
+  <p class="mono status"><span class="dot"></span><span data-copy="status"></span></p>
+  <p class="mono url">mefelipe.com.br</p>
+  <p class="lead" data-copy="lead"></p>
+  <h1 class="role" data-copy="role"></h1>
+</div>
+<script>
+  const COPY = {
+    pt: {
+      status: "Aberto a novos projetos",
+      lead: "Crio soluções <b>IA-native em produção.</b>",
+      role: '<span>AI Engineer</span><span class="accent">Sênior</span>',
+    },
+    en: {
+      status: "Open to new projects",
+      lead: "<b>AI-native solutions,</b> running in production.",
+      role: '<span class="accent">Senior</span><span>AI Engineer</span>',
+    },
+  };
+  const lang = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "pt";
+  document.documentElement.lang = lang === "en" ? "en" : "pt-BR";
+  for (const el of document.querySelectorAll("[data-copy]")) {
+    el.innerHTML = COPY[lang][el.dataset.copy];
+  }
+</script>
+</body>
+</html>
