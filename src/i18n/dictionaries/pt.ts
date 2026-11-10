@@ -15,6 +15,7 @@ const pt: Dictionary = {
       "GenAI",
       "Felipe P. dos Santos",
     ],
+    imageAlt: "Felipe Santos, AI Engineer Sênior, sorrindo de braços cruzados.",
   },
   nav: {
     links: [

@@ -16,5 +16,7 @@ export const SITE = {
   tagline: "AI / LLM Engineer",
   description:
     "AI Engineer Sênior: RAG, agentes com tools e plataformas de LLM, com 6 anos de desenvolvimento full stack. Aberto a novos projetos, a partir de Curitiba.",
-  url: "https://mefelipe.com.br",
+  // The bare domain redirects here, and crawlers fetching og:image should not
+  // depend on following that redirect.
+  url: "https://www.mefelipe.com.br",
 } as const;

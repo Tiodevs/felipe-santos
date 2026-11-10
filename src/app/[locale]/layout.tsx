@@ -45,6 +45,16 @@ export async function generateMetadata({
       siteName: SITE.name,
       title: dict.meta.title,
       description: dict.meta.description,
+      // Rendered by scripts/og-cover. Next copies it into twitter:image.
+      images: [
+        {
+          url: `/og/cover-${locale}.jpg`,
+          width: 1200,
+          height: 630,
+          type: "image/jpeg",
+          alt: dict.meta.imageAlt,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
