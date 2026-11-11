@@ -21,7 +21,6 @@ const en: Dictionary = {
   nav: {
     links: [
       { label: "Career", href: "#experiencia" },
-      { label: "Service", href: "#servicos" },
       { label: "Projects", href: "#projetos" },
       { label: "Studies", href: "#estudos" },
       { label: "Skills", href: "#competencias" },

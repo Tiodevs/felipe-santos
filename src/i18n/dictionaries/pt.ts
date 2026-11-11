@@ -20,7 +20,6 @@ const pt: Dictionary = {
   nav: {
     links: [
       { label: "Carreira profissional", href: "#experiencia" },
-      { label: "Serviço", href: "#servicos" },
       { label: "Projetos", href: "#projetos" },
       { label: "Estudos", href: "#estudos" },
       { label: "Competências", href: "#competencias" },
